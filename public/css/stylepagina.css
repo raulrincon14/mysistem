@@ -21523,7 +21523,8 @@ background-repeat: no-repeat;
   border-color: #41555e #ddd #ddd;
 }
 .pcoded[layout-type="dark"] .modal-content {
-  background-color: #465a64;
+  /* background-color: rgba(0, 4, 6, 0.82); */
+  background-color: transparent; 
 }
 .pcoded[layout-type="dark"] .modal-content .modal-header {
   border-bottom: 1px solid #37474f;

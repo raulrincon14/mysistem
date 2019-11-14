@@ -1997,14 +1997,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      nombre: '',
-      descripcion: '',
+      ca_nombre: '',
+      ca_desc: '',
       arrayCategoria: [],
       modal: 0,
-      tituloModal: ''
+      tituloModal: '',
+      tipoAccion: 0
     };
   },
   methods: {
@@ -2017,7 +2022,26 @@ __webpack_require__.r(__webpack_exports__);
       })["finally"](function () {// always executed
       });
     },
-    registrarCategoria: function registrarCategoria() {},
+    registrarCategoria: function registrarCategoria() {
+      var me = this;
+      axios.post('/categoria/registrar', {
+        'ca_nombre': this.ca_nombre,
+        'ca_desc': this.ca_desc
+      }).then(function (response) {
+        console.log(response);
+        me.cerrarModal();
+        me.listarCategoria();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    cerrarModal: function cerrarModal() {
+      this.modal = 0;
+      this.tituloModal = '';
+      this.ca_nombre = '';
+      this.ca_desc = '';
+      this.tipoAccion = 0;
+    },
     abrirModal: function abrirModal(modelo, accion) {
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
@@ -2029,8 +2053,9 @@ __webpack_require__.r(__webpack_exports__);
                 {
                   this.modal = 1;
                   this.tituloModal = 'Nueva Categoria';
-                  this.nombre = '';
-                  this.descripcion = '';
+                  this.ca_nombre = '';
+                  this.ca_desc = '';
+                  this.tipoAccion = 1;
                   break;
                 }
 
@@ -6506,7 +6531,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.mostrar{\n  display: list-item !important;\n\n  background-color: #3c29297a !important;\n}\n", ""]);
+exports.push([module.i, "\n.modal-content{\r\n  width: 100% !important;\r\n  position: absolute !important;\r\n  border: 0px !important;\n}\n.mostrar{\r\n    display: list-item !important;\r\n    opacity: 1 !important;\r\n    position: absolute !important;\r\n    background-color: #3c29297a !important;\n}\r\n", ""]);
 
 // exports
 
@@ -38113,59 +38138,157 @@ var render = function() {
                     attrs: { role: "document" }
                   },
                   [
-                    _c("div", { staticClass: "card" }, [
-                      _c("div", { staticClass: "card-header" }, [
-                        _c("h5", {
-                          domProps: { textContent: _vm._s(_vm.tituloModal) }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "card-block" }, [
-                        _c("form"),
+                    _c("div", { staticClass: "modal-content" }, [
+                      _c("div", { staticClass: "card" }, [
+                        _c("div", { staticClass: "card-header" }, [
+                          _c("h5", {
+                            domProps: { textContent: _vm._s(_vm.tituloModal) }
+                          })
+                        ]),
                         _vm._v(" "),
-                        _vm._m(5),
-                        _vm._v(" "),
-                        _vm._m(6),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "row" }, [
-                          _c("div", { staticClass: "col-sm-12" }, [
-                            _c("div", { staticClass: "text-center m-t-20" }, [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-primary waves-effect waves-light m-r-10",
-                                  attrs: { type: "submit" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.abrirModal(
-                                        "categoria",
-                                        "actualizar",
-                                        _vm.categoria
-                                      )
+                        _c("div", { staticClass: "card-block" }, [
+                          _c(
+                            "form",
+                            {
+                              attrs: {
+                                action: "",
+                                method: "post",
+                                enctype: "multipart/form-data"
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "form-group row" }, [
+                                _c(
+                                  "label",
+                                  { staticClass: "col-sm-3 col-form-label" },
+                                  [_vm._v("Nombre (*)")]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-sm-9" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.ca_nombre,
+                                        expression: "ca_nombre"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "text",
+                                      autocomplete: "off",
+                                      placeholder: "Nombre de Categoria"
+                                    },
+                                    domProps: { value: _vm.ca_nombre },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.ca_nombre = $event.target.value
+                                      }
                                     }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "Guardar\r\n                                                "
-                                  )
-                                ]
-                              ),
+                                  })
+                                ])
+                              ]),
                               _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-warning waves-effect waves-light",
-                                  attrs: { type: "button" }
-                                },
-                                [
-                                  _vm._v(
-                                    "Cerrar\r\n                                                "
-                                  )
-                                ]
-                              )
+                              _c("div", { staticClass: "form-group row" }, [
+                                _c(
+                                  "label",
+                                  { staticClass: "col-sm-3 col-form-label" },
+                                  [_vm._v("Descripción")]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-sm-9" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.ca_desc,
+                                        expression: "ca_desc"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "text",
+                                      placeholder: "Breve descripción"
+                                    },
+                                    domProps: { value: _vm.ca_desc },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.ca_desc = $event.target.value
+                                      }
+                                    }
+                                  })
+                                ])
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-sm-12" }, [
+                              _c("div", { staticClass: "text-center m-t-20" }, [
+                                _vm.tipoAccion == 1
+                                  ? _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-primary waves-effect waves-light m-r-10",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.registrarCategoria()
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "Guardar\r\n                                                "
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.tipoAccion == 2
+                                  ? _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-primary waves-effect waves-light m-r-10",
+                                        attrs: { type: "button" }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "Actualizar\r\n                                                "
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn btn-warning waves-effect waves-light",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.cerrarModal()
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "Cerrar\r\n                                                "
+                                    )
+                                  ]
+                                )
+                              ])
                             ])
                           ])
                         ])
@@ -38332,44 +38455,6 @@ var staticRenderFns = [
           ])
         ]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c("label", { staticClass: "col-sm-3 col-form-label" }, [
-        _vm._v("Nombre (*)")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-sm-9" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "text",
-            autocomplete: "off",
-            placeholder: "Nombre de Categoria"
-          }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c("label", { staticClass: "col-sm-3 col-form-label" }, [
-        _vm._v("Descripción")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-sm-9" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "text", placeholder: "Breve descripción" }
-        })
-      ])
     ])
   }
 ]
@@ -50706,8 +50791,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\rincosoftventa\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\rincosoftventa\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\mysistem\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\mysistem\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

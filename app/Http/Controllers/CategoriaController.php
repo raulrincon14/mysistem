@@ -31,7 +31,7 @@ class CategoriaController extends Controller
       $categoria = new Categoria();
       $categoria->ca_nombre = $request->ca_nombre;
       $categoria->ca_desc = $request->ca_desc;
-      $categoria->ca_estado = '1';
+      $categoria->ca_estado = 1;
       $categoria->save();
     }
 
@@ -45,7 +45,7 @@ class CategoriaController extends Controller
      */
     public function update(Request $request)
     {
-      $categoria = Categoria::finOrFail($request->id);
+      $categoria = Categoria::finOrFail($request->idcategoria);
       $categoria->ca_nombre = $request->ca_nombre;
       $categoria->ca_desc = $request->ca_desc;
       $categoria->ca_estado = '1';
@@ -54,14 +54,14 @@ class CategoriaController extends Controller
 
     public function desactivar(Request $request)
     {
-      $categoria = Categoria::finOrFail($request->id);
+      $categoria = Categoria::finOrFail($request->idcategoria);
       $categoria->ca_estado = '0';
       $categoria->save();
     }
 
     public function activar(Request $request)
     {
-      $categoria = Categoria::finOrFail($request->id);
+      $categoria = Categoria::finOrFail($request->idcategoria);
       $categoria->ca_estado = '1';
       $categoria->save();
     }

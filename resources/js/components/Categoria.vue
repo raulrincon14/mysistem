@@ -105,38 +105,42 @@
                     <!-- `New` Constructor table end -->
                     <div class="modal fade" id="large-Modal" :class="{'mostrar':modal}" tabindex="-1" role="dialog">
                         <div class="modal-dialog modal-md" role="document">
-
+                          <div class="modal-content">
                             <div class="card">
                                 <div class="card-header">
                                     <h5 v-text="tituloModal"></h5>
                                 </div>
                                 <div class="card-block">
-                                    <form />
+                                    <form action="" method="post" enctype="multipart/form-data">
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Nombre (*)</label>
                                         <div class="col-sm-9">
-                                            <input type="text" autocomplete="off" placeholder="Nombre de Categoria" class="form-control" />
+                                            <input type="text" v-model="ca_nombre" autocomplete="off" placeholder="Nombre de Categoria" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Descripción</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" placeholder="Breve descripción" />
+                                            <input type="text" v-model="ca_desc" class="form-control" placeholder="Breve descripción" />
                                         </div>
                                     </div>
+                                    </form>
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="text-center m-t-20">
-                                                <button type="submit" @click="abrirModal('categoria','actualizar',categoria)" class="btn btn-primary waves-effect waves-light m-r-10">Guardar
+                                                <button type="button" v-if="tipoAccion==1" class="btn btn-primary waves-effect waves-light m-r-10" @click="registrarCategoria()">Guardar
                                                 </button>
-                                                <button type="button" class="btn btn-warning waves-effect waves-light">Cerrar
+                                                <button type="button" v-if="tipoAccion==2" class="btn btn-primary waves-effect waves-light m-r-10">Actualizar
+                                                </button>
+                                                <button type="button" @click="cerrarModal()" class="btn btn-warning waves-effect waves-light">Cerrar
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
-                                    </form>
+
                                   </div>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -161,11 +165,12 @@
 export default {
     data() {
         return {
-            nombre: '',
-            descripcion: '',
+            ca_nombre: '',
+            ca_desc: '',
             arrayCategoria: [],
             modal:0,
-            tituloModal: ''
+            tituloModal: '',
+            tipoAccion:0
         }
     },
     methods: {
@@ -183,7 +188,24 @@ export default {
 
         },
         registrarCategoria(){
-
+          let me = this;
+          axios.post('/categoria/registrar', {
+            'ca_nombre' : this.ca_nombre,
+            'ca_desc': this.ca_desc
+          }).then(function (response) {
+            console.log(response);
+            me.cerrarModal();
+            me.listarCategoria();
+          }).catch(function (error) {
+            console.log(error);
+          });
+        },
+        cerrarModal(){
+          this.modal=0;
+          this.tituloModal='';
+          this.ca_nombre='';
+          this.ca_desc='';
+          this.tipoAccion=0;
         },
         abrirModal(modelo, accion, data = []){
           switch (modelo) {
@@ -192,8 +214,9 @@ export default {
                   case 'registrar':{
                     this.modal = 1;
                     this.tituloModal = 'Nueva Categoria'
-                    this.nombre = '';
-                    this.descripcion = '';
+                    this.ca_nombre = '';
+                    this.ca_desc = '';
+                    this.tipoAccion=1;
                     break;
                   }
                   case 'actualizar':{
@@ -212,6 +235,11 @@ export default {
 }
 </script>
 <style media="screen">
+.modal-content{
+  width: 100% !important;
+  position: absolute !important;
+  border: 0px !important;
+}
   .mostrar{
     display: list-item !important;
     opacity: 1 !important;
