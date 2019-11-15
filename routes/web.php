@@ -19,3 +19,9 @@ Route::post('/categoria/registrar','CategoriaController@store');
 Route::put('/categoria/actualizar','CategoriaController@update');
 Route::put('/categoria/desactivar','CategoriaController@desactivar');
 Route::put('/categoria/activar','CategoriaController@activar');
+
+Route::get('/marca','MarcaController@index');
+Route::post('/marca/registrar','MarcaController@store');
+Route::put('/marca/actualizar','MarcaController@update');
+Route::put('/marca/desactivar','MarcaController@desactivar');
+Route::put('/marca/activar','MarcaController@activar');
