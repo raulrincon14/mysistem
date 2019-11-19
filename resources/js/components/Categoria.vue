@@ -125,6 +125,13 @@
                                         </div>
                                     </div>
                                     </form>
+                                    <div v-show="errorCategoria" class="form-group row div-error">
+                                      <div class="text-center text-error">
+                                        <div v-for="error in errorMostrarMsj" :key="error" v-text="error">
+
+                                        </div>
+                                      </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="text-center m-t-20">
@@ -170,7 +177,9 @@ export default {
             arrayCategoria: [],
             modal:0,
             tituloModal: '',
-            tipoAccion:0
+            tipoAccion:0,
+            erorCategoria: 0,
+            errorMostrarMsj: []
         }
     },
     methods: {
@@ -188,31 +197,29 @@ export default {
 
         },
         registrarCategoria(){
+            if (this.validarCategoria()) {
+              return;
+            }
 
           let me=this;
 
-              // axios.post('/categoria/registrar',{
-              //   'ca_nombre' : this.ca_nombre,
-              //   'ca_desc': this.ca_desc
-              //   }).then(function (response) {
-              //     me.cerrarModal();
-              //   //  me.listarCategoria(1,'','nombre');
-              //   })
-              //   .catch(function (response) {
-              //     console.log(error);
-              //   });
-
-              axios.post('/categoria/registrar', {
+              axios.post('/categoria/registrar',{
                 'ca_nombre' : this.ca_nombre,
                 'ca_desc': this.ca_desc
-            })
-            .then(function (response) {
-              console.log(response);
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-
+                }).then(function (response) {
+                  me.cerrarModal();
+                  me.listarCategoria();
+                })
+                .catch(function (response) {
+                  console.log(error);
+                });
+        },
+        validarCategoria(){
+          this.errorCategoria=0;
+          this.errorMostrarMsj=[];
+          if (!this.ca_nombre) this.errorMostrarMsj.push("El nombre de la categoria no puede estar vacio.");
+          if(this.errorMostrarMsj.length) this.errorCategoria = 1;
+            return this.errorCategoria;
         },
         cerrarModal(){
           this.modal=0;
@@ -259,5 +266,9 @@ export default {
     opacity: 1 !important;
     position: absolute !important;
     background-color: #3c29297a !important;
+  }
+  .div-error{
+    color: red !important;
+    font-weight: bold;
   }
 </style>

@@ -2001,6 +2001,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2009,7 +2016,9 @@ __webpack_require__.r(__webpack_exports__);
       arrayCategoria: [],
       modal: 0,
       tituloModal: '',
-      tipoAccion: 0
+      tipoAccion: 0,
+      erorCategoria: 0,
+      errorMostrarMsj: []
     };
   },
   methods: {
@@ -2023,25 +2032,27 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     registrarCategoria: function registrarCategoria() {
-      var me = this; // axios.post('/categoria/registrar',{
-      //   'ca_nombre' : this.ca_nombre,
-      //   'ca_desc': this.ca_desc
-      //   }).then(function (response) {
-      //     me.cerrarModal();
-      //   //  me.listarCategoria(1,'','nombre');
-      //   })
-      //   .catch(function (response) {
-      //     console.log(error);
-      //   });
+      if (this.validarCategoria()) {
+        return;
+      }
 
+      var me = this;
       axios.post('/categoria/registrar', {
         'ca_nombre': this.ca_nombre,
         'ca_desc': this.ca_desc
       }).then(function (response) {
-        console.log(response);
-      })["catch"](function (error) {
+        me.cerrarModal();
+        me.listarCategoria();
+      })["catch"](function (response) {
         console.log(error);
       });
+    },
+    validarCategoria: function validarCategoria() {
+      this.errorCategoria = 0;
+      this.errorMostrarMsj = [];
+      if (!this.ca_nombre) this.errorMostrarMsj.push("El nombre de la categoria no puede estar vacio.");
+      if (this.errorMostrarMsj.length) this.errorCategoria = 1;
+      return this.errorCategoria;
     },
     cerrarModal: function cerrarModal() {
       this.modal = 0;
@@ -6793,7 +6804,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.modal-content{\r\n  width: 100% !important;\r\n  position: absolute !important;\r\n  border: 0px !important;\n}\n.mostrar{\r\n    display: list-item !important;\r\n    opacity: 1 !important;\r\n    position: absolute !important;\r\n    background-color: #3c29297a !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.modal-content{\r\n  width: 100% !important;\r\n  position: absolute !important;\r\n  border: 0px !important;\n}\n.mostrar{\r\n    display: list-item !important;\r\n    opacity: 1 !important;\r\n    position: absolute !important;\r\n    background-color: #3c29297a !important;\n}\n.div-error{\r\n    color: red !important;\r\n    font-weight: bold;\n}\r\n", ""]);
 
 // exports
 
@@ -38541,6 +38552,34 @@ var render = function() {
                             ]
                           ),
                           _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.errorCategoria,
+                                  expression: "errorCategoria"
+                                }
+                              ],
+                              staticClass: "form-group row div-error"
+                            },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "text-center text-error" },
+                                _vm._l(_vm.errorMostrarMsj, function(error) {
+                                  return _c("div", {
+                                    key: error,
+                                    domProps: { textContent: _vm._s(error) }
+                                  })
+                                }),
+                                0
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
                           _c("div", { staticClass: "row" }, [
                             _c("div", { staticClass: "col-sm-12" }, [
                               _c("div", { staticClass: "text-center m-t-20" }, [
@@ -51651,8 +51690,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\rincosoftventa\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\rincosoftventa\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\mysistem\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\mysistem\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
