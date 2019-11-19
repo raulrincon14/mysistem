@@ -15,4 +15,7 @@
   <template v-if="menu==4">
     <categoria></categoria>
   </template>
+  <template v-if="menu==5">
+    <marca></marca>
+  </template>
 @endsection

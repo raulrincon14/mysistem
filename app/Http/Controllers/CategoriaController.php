@@ -31,8 +31,9 @@ class CategoriaController extends Controller
       $categoria = new Categoria();
       $categoria->ca_nombre = $request->ca_nombre;
       $categoria->ca_desc = $request->ca_desc;
-      $categoria->ca_estado = 1;
+      $categoria->ca_estado = '1';
       $categoria->save();
+
     }
 
 
@@ -50,6 +51,7 @@ class CategoriaController extends Controller
       $categoria->ca_desc = $request->ca_desc;
       $categoria->ca_estado = '1';
       $categoria->save();
+
     }
 
     public function desactivar(Request $request)

@@ -188,17 +188,31 @@ export default {
 
         },
         registrarCategoria(){
-          let me = this;
-          axios.post('/categoria/registrar', {
-            'ca_nombre' : this.ca_nombre,
-            'ca_desc': this.ca_desc
-          }).then(function (response) {
-            console.log(response);
-            me.cerrarModal();
-            me.listarCategoria();
-          }).catch(function (error) {
-            console.log(error);
-          });
+
+          let me=this;
+
+              // axios.post('/categoria/registrar',{
+              //   'ca_nombre' : this.ca_nombre,
+              //   'ca_desc': this.ca_desc
+              //   }).then(function (response) {
+              //     me.cerrarModal();
+              //   //  me.listarCategoria(1,'','nombre');
+              //   })
+              //   .catch(function (response) {
+              //     console.log(error);
+              //   });
+
+              axios.post('/categoria/registrar', {
+                'ca_nombre' : this.ca_nombre,
+                'ca_desc': this.ca_desc
+            })
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+
         },
         cerrarModal(){
           this.modal=0;

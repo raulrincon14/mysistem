@@ -26,10 +26,11 @@ class MarcaController extends Controller
     public function store(Request $request)
     {
         $marca = new Marca();
-        $marca->ma_nombre = $request->nombre;
-        $marca->ma_desc = $request->desc
-        $marca->ma_estado= '1';
+        $marca->ma_nombre = $request->ma_nombre;
+        $marca->ma_desc = $request->ma_desc;
+        $marca->ma_estado = '1';
         $marca->save();
+
     }
 
     /**
@@ -42,22 +43,24 @@ class MarcaController extends Controller
     public function update(Request $request)
     {
       $marca = Marca::findOrFail($request->idmarca);
-      $marca->ma_nombre = $request->nombre;
-      $marca->ma_desc = $request->desc
-      $marca->ma_estado= '1';
+      $marca->ma_nombre = $request->ma_nombre;
+      $marca->ma_desc = $request->ma_desc;
+      $marca->ma_estado = '1';
       $marca->save();
     }
     public function desactivar(Request $request)
     {
       $marca = Marca::findOrFail($request->idmarca);
-      $marca->ma_estado= '0';
+      $marca->ma_estado = '0';
       $marca->save();
+
     }
     public function activar(Request $request)
     {
       $marca = Marca::findOrFail($request->idmarca);
-      $marca->ma_estado= '1';
+      $marca->ma_estado = '1';
       $marca->save();
+
     }
 
 }
