@@ -66,10 +66,10 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                  <button class="btn waves-effect waves-dark btn-warning btn-outline-warning btn-iconr">
+                                                  <button type="button" @click="abrirModal('categoria','actualizar',categoria)" class="btn waves-effect waves-dark btn-warning btn-outline-warning btn-iconr">
                                                         <i class="ti-marker-alt"></i>
                                                     </button>&nbsp;
-                                                    <button class="btn waves-effect waves-dark btn-danger btn-outline-danger btn-iconr">
+                                                    <button type="button" class="btn waves-effect waves-dark btn-danger btn-outline-danger btn-iconr">
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </td>
@@ -125,19 +125,21 @@
                                         </div>
                                     </div>
                                     </form>
-                                    <div v-show="errorCategoria" class="form-group row div-error">
-                                      <div class="text-center text-error">
-                                        <div v-for="error in errorMostrarMsj" :key="error" v-text="error">
-
+                                    <div class="form-group row">
+                                      <div v-show="errorCategoria" class="div-error col-sm-12">
+                                        <div class="text-error col-sm-12 text-center">
+                                          <div v-for="error in errorMostrarMsj" :key="error" v-text="error">
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
+
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="text-center m-t-20">
                                                 <button type="button" v-if="tipoAccion==1" class="btn btn-primary waves-effect waves-light m-r-10" @click="registrarCategoria()">Guardar
                                                 </button>
-                                                <button type="button" v-if="tipoAccion==2" class="btn btn-primary waves-effect waves-light m-r-10">Actualizar
+                                                <button type="button" v-if="tipoAccion==2" class="btn btn-primary waves-effect waves-light m-r-10" @click="actualizarCategoria()">Actualizar
                                                 </button>
                                                 <button type="button" @click="cerrarModal()" class="btn btn-warning waves-effect waves-light">Cerrar
                                                 </button>
@@ -172,13 +174,14 @@
 export default {
     data() {
         return {
+            categoria_id:0,
             ca_nombre: '',
             ca_desc: '',
             arrayCategoria: [],
             modal:0,
             tituloModal: '',
             tipoAccion:0,
-            erorCategoria: 0,
+            errorCategoria: 0,
             errorMostrarMsj: []
         }
     },
@@ -214,6 +217,25 @@ export default {
                   console.log(error);
                 });
         },
+        actualizarCategoria(){
+          if (this.validarCategoria()) {
+            return;
+          }
+
+          let me=this;
+
+            axios.post('/categoria/actualizar',{
+              'ca_nombre' : this.ca_nombre,
+              'ca_desc': this.ca_desc,
+              'idcategoria': this.categoria_id
+              }).then(function (response) {
+                me.cerrarModal();
+                me.listarCategoria();
+              })
+              .catch(function (response) {
+                console.log(error);
+              });
+        },
         validarCategoria(){
           this.errorCategoria=0;
           this.errorMostrarMsj=[];
@@ -227,6 +249,8 @@ export default {
           this.ca_nombre='';
           this.ca_desc='';
           this.tipoAccion=0;
+          this.errorCategoria = 0;
+          this.errorMostrarMsj= [];
         },
         abrirModal(modelo, accion, data = []){
           switch (modelo) {
@@ -241,7 +265,14 @@ export default {
                     break;
                   }
                   case 'actualizar':{
-
+                     console.log(data);
+                    this.modal = 1;
+                    this.tituloModal ='Actualizar Categoría';
+                    this.tipoAccion=2;
+                    this.categoria_id = data['idcategoria'];
+                    this.ca_nombre=data['ca_nombre'];
+                    this.ca_desc = data['ca_desc'];
+                    break;
                   }
                 }
             }
@@ -270,5 +301,6 @@ export default {
   .div-error{
     color: red !important;
     font-weight: bold;
+    height: 10px;
   }
 </style>
