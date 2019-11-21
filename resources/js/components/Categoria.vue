@@ -69,9 +69,17 @@
                                                   <button type="button" @click="abrirModal('categoria','actualizar',categoria)" class="btn waves-effect waves-dark btn-warning btn-outline-warning btn-iconr">
                                                         <i class="ti-marker-alt"></i>
                                                     </button>&nbsp;
-                                                    <button type="button" class="btn waves-effect waves-dark btn-danger btn-outline-danger btn-iconr">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
+                                                    <template v-if="categoria.ca_estado">
+                                                      <button type="button" class="btn waves-effect waves-dark btn-danger btn-outline-danger btn-iconr" @click="desactivarCategoria(categoria.idcategoria)">
+                                                          <i class="fa fa-trash"></i>
+                                                      </button>
+                                                    </template>
+                                                    <template v-else="categoria.ca_estado">
+                                                      <button type="button" class="btn waves-effect waves-dark btn-info btn-outline-info btn-iconr" @click="activarCategoria(categoria.idcategoria)">
+                                                          <i class="fa fa-check"></i>
+                                                      </button>
+                                                    </template>
+
                                                 </td>
 
                                             </tr>
@@ -81,19 +89,19 @@
                                 <div class="card-block">
                                     <nav aria-label="Page navigation example justify-content-center">
                                         <ul class="pagination">
-                                            <li class="page-item">
-                                                <a class="page-link" href="#" aria-label="Previous">
+                                            <li class="page-item" v-if="pagination.current_page > 1">
+                                                <a class="page-link" href="#" aria-label="Previous" @click.prevent="cambiarPagina(pagination.current_page - 1)">
                                                     <span aria-hidden="true">&laquo;</span>
-                                                    <span class="sr-only">Previous</span>
+                                                    <span class="sr-only" >Anterior</span>
                                                 </a>
                                             </li>
-                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#" aria-label="Next">
+                                            <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page == isActived ? 'active' : '']">
+                                              <a class="page-link" href="#" @click.prevent="cambiarPagina(page)" v-text="page"></a>
+                                            </li>
+                                            <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                                                <a class="page-link" href="#" aria-label="Next"  @click.prevent="cambiarPagina(pagination.current_page + 1)">
                                                     <span aria-hidden="true">&raquo;</span>
-                                                    <span class="sr-only">Next</span>
+                                                    <span class="sr-only">Siguiente</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -182,14 +190,54 @@ export default {
             tituloModal: '',
             tipoAccion:0,
             errorCategoria: 0,
-            errorMostrarMsj: []
+            errorMostrarMsj: [],
+            pagination : {
+              'total' : 0,
+              'current_page': 0,
+              'per_page' : 0,
+              'last_page' : 0,
+              'from' : 0,
+              'to' : 0
+            },
+            offset: 3
+        }
+    },
+    computed:{
+      isActived: function(){
+          return this.pagination.current_page;
+        },
+        pagesNumber:function(){
+          if(!this.pagination.to){
+              return [];
+          }
+
+          var from = this.pagination.current_page-this.offset;
+          if (from < 1) {
+              from = 1;
+          }
+
+          var to = from + (this.offset*2);
+          if (to >= this.pagination.last_page) {
+              to = this.pagination.last_page;
+          }
+
+          var pagesArray = [];
+          while (from <= to) {
+            pagesArray.push(from);
+            from++;
+          }
+          return pagesArray;
+
         }
     },
     methods: {
-        listarCategoria() {
+        listarCategoria(page) {
             let me = this;
+            var url='/categoria?page=' + page;
             axios.get('/categoria').then(function(response) {
-                    me.arrayCategoria = response.data;
+                    var respuesta = response.data;
+                    me.arrayCategoria = respuesta.categoria.data;
+                    me.pagination = respuesta.pagination;
                 })
                 .catch(function(error) {
                     console.log(error);
@@ -198,6 +246,12 @@ export default {
                     // always executed
                 });
 
+        },
+        cambiarPagina(page){
+          let me=this;
+
+          me.pagination.current_page = page;
+          me.listarCategoria(page);
         },
         registrarCategoria(){
             if (this.validarCategoria()) {
@@ -224,7 +278,7 @@ export default {
 
           let me=this;
 
-            axios.post('/categoria/actualizar',{
+            axios.put('/categoria/actualizar',{
               'ca_nombre' : this.ca_nombre,
               'ca_desc': this.ca_desc,
               'idcategoria': this.categoria_id
@@ -235,6 +289,88 @@ export default {
               .catch(function (response) {
                 console.log(error);
               });
+        },
+        desactivarCategoria(id){
+          const swalWithBootstrapButtons = Swal.mixin({
+              customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+              },
+              buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+              title: 'Está seguro de desactivar esta categoria?',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonText: 'Aceptar!',
+              cancelButtonText: 'Cancelar',
+              reverseButtons: true
+            }).then((result) => {
+              if (result.value) {
+                let me=this;
+
+                  axios.put('/categoria/desactivar',{
+                    'idcategoria': id
+                    }).then(function (response) {
+                      me.listarCategoria();
+                      swalWithBootstrapButtons.fire(
+                        'Desactivado',
+                        'Fue desactivado con éxito.',
+                        'success'
+                      )
+                    }).catch(function (response) {
+                      console.log(error);
+                    });
+
+              } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+              ) {
+
+              }
+            })
+        },
+        activarCategoria(id){
+          const swalWithBootstrapButtons = Swal.mixin({
+              customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+              },
+              buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+              title: 'Está seguro de activar esta categoria?',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonText: 'Aceptar!',
+              cancelButtonText: 'Cancelar',
+              reverseButtons: true
+            }).then((result) => {
+              if (result.value) {
+                let me=this;
+
+                  axios.put('/categoria/activar',{
+                    'idcategoria': id
+                    }).then(function (response) {
+                      me.listarCategoria();
+                      swalWithBootstrapButtons.fire(
+                        'Activado',
+                        'Fue activado con éxito.',
+                        'success'
+                      )
+                    }).catch(function (response) {
+                      console.log(error);
+                    });
+
+              } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+              ) {
+
+              }
+            })
         },
         validarCategoria(){
           this.errorCategoria=0;

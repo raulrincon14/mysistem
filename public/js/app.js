@@ -2010,6 +2010,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2021,18 +2029,66 @@ __webpack_require__.r(__webpack_exports__);
       tituloModal: '',
       tipoAccion: 0,
       errorCategoria: 0,
-      errorMostrarMsj: []
+      errorMostrarMsj: [],
+      pagination: {
+        'total': 0,
+        'current_page': 0,
+        'per_page': 0,
+        'last_page': 0,
+        'from': 0,
+        'to': 0
+      },
+      offset: 3
     };
   },
+  computed: {
+    isActived: function isActived() {
+      return this.pagination.current_page;
+    },
+    pagesNumber: function pagesNumber() {
+      if (!this.pagination.to) {
+        return [];
+      }
+
+      var from = this.pagination.current_page - this.offset;
+
+      if (from < 1) {
+        from = 1;
+      }
+
+      var to = from + this.offset * 2;
+
+      if (to >= this.pagination.last_page) {
+        to = this.pagination.last_page;
+      }
+
+      var pagesArray = [];
+
+      while (from <= to) {
+        pagesArray.push(from);
+        from++;
+      }
+
+      return pagesArray;
+    }
+  },
   methods: {
-    listarCategoria: function listarCategoria() {
+    listarCategoria: function listarCategoria(page) {
       var me = this;
+      var url = '/categoria?page=' + page;
       axios.get('/categoria').then(function (response) {
-        me.arrayCategoria = response.data;
+        var respuesta = response.data;
+        me.arrayCategoria = respuesta.categoria.data;
+        me.pagination = respuesta.pagination;
       })["catch"](function (error) {
         console.log(error);
       })["finally"](function () {// always executed
       });
+    },
+    cambiarPagina: function cambiarPagina(page) {
+      var me = this;
+      me.pagination.current_page = page;
+      me.listarCategoria(page);
     },
     registrarCategoria: function registrarCategoria() {
       if (this.validarCategoria()) {
@@ -2056,7 +2112,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var me = this;
-      axios.post('/categoria/actualizar', {
+      axios.put('/categoria/actualizar', {
         'ca_nombre': this.ca_nombre,
         'ca_desc': this.ca_desc,
         'idcategoria': this.categoria_id
@@ -2065,6 +2121,72 @@ __webpack_require__.r(__webpack_exports__);
         me.listarCategoria();
       })["catch"](function (response) {
         console.log(error);
+      });
+    },
+    desactivarCategoria: function desactivarCategoria(id) {
+      var _this = this;
+
+      var swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      });
+      swalWithBootstrapButtons.fire({
+        title: 'Está seguro de desactivar esta categoria?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar!',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+      }).then(function (result) {
+        if (result.value) {
+          var me = _this;
+          axios.put('/categoria/desactivar', {
+            'idcategoria': id
+          }).then(function (response) {
+            me.listarCategoria();
+            swalWithBootstrapButtons.fire('Desactivado', 'Fue desactivado con éxito.', 'success');
+          })["catch"](function (response) {
+            console.log(error);
+          });
+        } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel) {}
+      });
+    },
+    activarCategoria: function activarCategoria(id) {
+      var _this2 = this;
+
+      var swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      });
+      swalWithBootstrapButtons.fire({
+        title: 'Está seguro de activar esta categoria?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar!',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+      }).then(function (result) {
+        if (result.value) {
+          var me = _this2;
+          axios.put('/categoria/activar', {
+            'idcategoria': id
+          }).then(function (response) {
+            me.listarCategoria();
+            swalWithBootstrapButtons.fire('Activado', 'Fue activado con éxito.', 'success');
+          })["catch"](function (response) {
+            console.log(error);
+          });
+        } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel) {}
       });
     },
     validarCategoria: function validarCategoria() {
@@ -38463,30 +38585,78 @@ var render = function() {
                                   ])
                             ]),
                             _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn waves-effect waves-dark btn-warning btn-outline-warning btn-iconr",
-                                  attrs: { type: "button" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.abrirModal(
-                                        "categoria",
-                                        "actualizar",
-                                        categoria
-                                      )
+                            _c(
+                              "td",
+                              [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn waves-effect waves-dark btn-warning btn-outline-warning btn-iconr",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.abrirModal(
+                                          "categoria",
+                                          "actualizar",
+                                          categoria
+                                        )
+                                      }
                                     }
-                                  }
-                                },
-                                [_c("i", { staticClass: "ti-marker-alt" })]
-                              ),
-                              _vm._v(
-                                " \r\n                                                    "
-                              ),
-                              _vm._m(3, true)
-                            ])
+                                  },
+                                  [_c("i", { staticClass: "ti-marker-alt" })]
+                                ),
+                                _vm._v(
+                                  " \r\n                                                    "
+                                ),
+                                categoria.ca_estado
+                                  ? [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn waves-effect waves-dark btn-danger btn-outline-danger btn-iconr",
+                                          attrs: { type: "button" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.desactivarCategoria(
+                                                categoria.idcategoria
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fa fa-trash"
+                                          })
+                                        ]
+                                      )
+                                    ]
+                                  : [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn waves-effect waves-dark btn-info btn-outline-info btn-iconr",
+                                          attrs: { type: "button" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.activarCategoria(
+                                                categoria.idcategoria
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fa fa-check"
+                                          })
+                                        ]
+                                      )
+                                    ]
+                              ],
+                              2
+                            )
                           ])
                         }),
                         0
@@ -38494,7 +38664,118 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(4)
+                  _c("div", { staticClass: "card-block" }, [
+                    _c(
+                      "nav",
+                      {
+                        attrs: {
+                          "aria-label":
+                            "Page navigation example justify-content-center"
+                        }
+                      },
+                      [
+                        _c(
+                          "ul",
+                          { staticClass: "pagination" },
+                          [
+                            _vm.pagination.current_page > 1
+                              ? _c("li", { staticClass: "page-item" }, [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "page-link",
+                                      attrs: {
+                                        href: "#",
+                                        "aria-label": "Previous"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.cambiarPagina(
+                                            _vm.pagination.current_page - 1
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "span",
+                                        { attrs: { "aria-hidden": "true" } },
+                                        [_vm._v("«")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("span", { staticClass: "sr-only" }, [
+                                        _vm._v("Anterior")
+                                      ])
+                                    ]
+                                  )
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm._l(_vm.pagesNumber, function(page) {
+                              return _c(
+                                "li",
+                                {
+                                  key: page,
+                                  staticClass: "page-item",
+                                  class: [page == _vm.isActived ? "active" : ""]
+                                },
+                                [
+                                  _c("a", {
+                                    staticClass: "page-link",
+                                    attrs: { href: "#" },
+                                    domProps: { textContent: _vm._s(page) },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.cambiarPagina(page)
+                                      }
+                                    }
+                                  })
+                                ]
+                              )
+                            }),
+                            _vm._v(" "),
+                            _vm.pagination.current_page <
+                            _vm.pagination.last_page
+                              ? _c("li", { staticClass: "page-item" }, [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "page-link",
+                                      attrs: {
+                                        href: "#",
+                                        "aria-label": "Next"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.cambiarPagina(
+                                            _vm.pagination.current_page + 1
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "span",
+                                        { attrs: { "aria-hidden": "true" } },
+                                        [_vm._v("»")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("span", { staticClass: "sr-only" }, [
+                                        _vm._v("Siguiente")
+                                      ])
+                                    ]
+                                  )
+                                ])
+                              : _vm._e()
+                          ],
+                          2
+                        )
+                      ]
+                    )
+                  ])
                 ])
               ])
             ]),
@@ -38775,90 +39056,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Estado")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass:
-          "btn waves-effect waves-dark btn-danger btn-outline-danger btn-iconr",
-        attrs: { type: "button" }
-      },
-      [_c("i", { staticClass: "fa fa-trash" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-block" }, [
-      _c(
-        "nav",
-        {
-          attrs: {
-            "aria-label": "Page navigation example justify-content-center"
-          }
-        },
-        [
-          _c("ul", { staticClass: "pagination" }, [
-            _c("li", { staticClass: "page-item" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "page-link",
-                  attrs: { href: "#", "aria-label": "Previous" }
-                },
-                [
-                  _c("span", { attrs: { "aria-hidden": "true" } }, [
-                    _vm._v("«")
-                  ]),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "sr-only" }, [_vm._v("Previous")])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "page-item" }, [
-              _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-                _vm._v("1")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "page-item active" }, [
-              _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-                _vm._v("2")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "page-item" }, [
-              _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-                _vm._v("3")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "page-item" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "page-link",
-                  attrs: { href: "#", "aria-label": "Next" }
-                },
-                [
-                  _c("span", { attrs: { "aria-hidden": "true" } }, [
-                    _vm._v("»")
-                  ]),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "sr-only" }, [_vm._v("Next")])
-                ]
-              )
-            ])
-          ])
-        ]
-      )
     ])
   }
 ]
@@ -51744,8 +51941,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\mysistem\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\mysistem\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\rincosoftventa\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\rincosoftventa\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Categoria;
+// use Illuminate\Support\Facades\DB;
 
 class CategoriaController extends Controller
 {
@@ -12,10 +13,22 @@ class CategoriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-      $categoria = Categoria::all();
-      return $categoria;
+      // if (!$request->ajax()) return redirect('/');
+      // $categoria = Categoria::all();
+      $categoria = Categoria::paginate(2);
+      return [
+        'pagination' => [
+          'total'           => $categoria->total(),
+          'current_page'    => $categoria->currentPage(),
+          'per_page'        => $categoria->perPage(),
+          'last_page'       => $categoria->lastPage(),
+          'from'            => $categoria->firstItem(),
+          'to'              => $categoria->lastItem(),
+        ],
+        'categoria' => $categoria
+      ];
     }
 
 
@@ -28,6 +41,7 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
+      if (!$request->ajax()) return redirect('/');
       $categoria = new Categoria();
       $categoria->ca_nombre = $request->ca_nombre;
       $categoria->ca_desc = $request->ca_desc;
@@ -46,7 +60,8 @@ class CategoriaController extends Controller
      */
     public function update(Request $request)
     {
-      $categoria = Categoria::finOrFail($request->idcategoria);
+      if (!$request->ajax()) return redirect('/');
+      $categoria = Categoria::findOrFail($request->idcategoria);
       $categoria->ca_nombre = $request->ca_nombre;
       $categoria->ca_desc = $request->ca_desc;
       $categoria->ca_estado = '1';
@@ -56,14 +71,16 @@ class CategoriaController extends Controller
 
     public function desactivar(Request $request)
     {
-      $categoria = Categoria::finOrFail($request->idcategoria);
+      if (!$request->ajax()) return redirect('/');
+      $categoria = Categoria::findOrFail($request->idcategoria);
       $categoria->ca_estado = '0';
       $categoria->save();
     }
 
     public function activar(Request $request)
     {
-      $categoria = Categoria::finOrFail($request->idcategoria);
+      if (!$request->ajax()) return redirect('/');
+      $categoria = Categoria::findOrFail($request->idcategoria);
       $categoria->ca_estado = '1';
       $categoria->save();
     }

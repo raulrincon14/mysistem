@@ -319,6 +319,7 @@
     <!-- ============================================================== -->
     <script src="js/jQuery.style.switcher.js"></script>
     <script src="js/jQuery.style.switcher.js"></script>
+    <script src="js/sweetalert2.all.js"></script>
 </body>
 
 </html>
