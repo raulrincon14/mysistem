@@ -40,6 +40,15 @@
                         </div>
 
                         <div class="card-block icon-btn">
+                          <div class="form-group row">
+                              <label class="col-sm-2 col-form-label"></label>
+                              <div class="col-sm-4">
+                                  <input type="text" autocomplete="off" v-model="buscar" @keyup.enter="listarCategoria(1,buscar)" placeholder="Texto a buscar" class="form-control" />
+                              </div>
+                              <div class="col-sm-4">
+                                  <button type="submit" class="btn btn-outline-primary btn-sm"  @click="listarCategoria(1,buscar)"><i class="fa fa-search"></i> Buscar </button>
+                              </div>
+                          </div>
                             <div class="dt-responsive table-responsive">
                                 <div class="table-responsive">
                                     <table class="table table-xs">
@@ -90,16 +99,16 @@
                                     <nav aria-label="Page navigation example justify-content-center">
                                         <ul class="pagination">
                                             <li class="page-item" v-if="pagination.current_page > 1">
-                                                <a class="page-link" href="#" aria-label="Previous" @click.prevent="cambiarPagina(pagination.current_page - 1)">
+                                                <a class="page-link" href="#" aria-label="Previous" @click.prevent="cambiarPagina(pagination.current_page - 1, buscar)">
                                                     <span aria-hidden="true">&laquo;</span>
                                                     <span class="sr-only" >Anterior</span>
                                                 </a>
                                             </li>
                                             <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page == isActived ? 'active' : '']">
-                                              <a class="page-link" href="#" @click.prevent="cambiarPagina(page)" v-text="page"></a>
+                                              <a class="page-link" href="#" @click.prevent="cambiarPagina(page, buscar)" v-text="page"></a>
                                             </li>
                                             <li class="page-item" v-if="pagination.current_page < pagination.last_page">
-                                                <a class="page-link" href="#" aria-label="Next"  @click.prevent="cambiarPagina(pagination.current_page + 1)">
+                                                <a class="page-link" href="#" aria-label="Next"  @click.prevent="cambiarPagina(pagination.current_page + 1, buscar)">
                                                     <span aria-hidden="true">&raquo;</span>
                                                     <span class="sr-only">Siguiente</span>
                                                 </a>
@@ -199,7 +208,9 @@ export default {
               'from' : 0,
               'to' : 0
             },
-            offset: 3
+            offset: 3,
+            criterio: 'nombre',
+            buscar: ''
         }
     },
     computed:{
@@ -231,10 +242,10 @@ export default {
         }
     },
     methods: {
-        listarCategoria(page) {
+        listarCategoria(page, buscar) {
             let me = this;
-            var url='/categoria?page=' + page;
-            axios.get('/categoria').then(function(response) {
+            var url='/categoria?page=' + page + '&buscar=' + buscar;
+            axios.get(url).then(function(response) {
                     var respuesta = response.data;
                     me.arrayCategoria = respuesta.categoria.data;
                     me.pagination = respuesta.pagination;
@@ -247,11 +258,11 @@ export default {
                 });
 
         },
-        cambiarPagina(page){
+        cambiarPagina(page, buscar){
           let me=this;
 
           me.pagination.current_page = page;
-          me.listarCategoria(page);
+          me.listarCategoria(page, buscar);
         },
         registrarCategoria(){
             if (this.validarCategoria()) {
@@ -265,7 +276,7 @@ export default {
                 'ca_desc': this.ca_desc
                 }).then(function (response) {
                   me.cerrarModal();
-                  me.listarCategoria();
+                  me.listarCategoria(1,'');
                 })
                 .catch(function (response) {
                   console.log(error);
@@ -284,7 +295,7 @@ export default {
               'idcategoria': this.categoria_id
               }).then(function (response) {
                 me.cerrarModal();
-                me.listarCategoria();
+                me.listarCategoria(1,'');
               })
               .catch(function (response) {
                 console.log(error);
@@ -313,7 +324,7 @@ export default {
                   axios.put('/categoria/desactivar',{
                     'idcategoria': id
                     }).then(function (response) {
-                      me.listarCategoria();
+                      me.listarCategoria(1,'');
                       swalWithBootstrapButtons.fire(
                         'Desactivado',
                         'Fue desactivado con éxito.',
@@ -354,7 +365,7 @@ export default {
                   axios.put('/categoria/activar',{
                     'idcategoria': id
                     }).then(function (response) {
-                      me.listarCategoria();
+                      me.listarCategoria(1,'');
                       swalWithBootstrapButtons.fire(
                         'Activado',
                         'Fue activado con éxito.',
@@ -418,7 +429,7 @@ export default {
     },
     mounted() {
         //  console.log('Component mounted.')
-        this.listarCategoria();
+        this.listarCategoria(1, this.buscar);
     }
 }
 </script>

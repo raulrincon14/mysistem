@@ -2018,6 +2018,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2038,7 +2047,9 @@ __webpack_require__.r(__webpack_exports__);
         'from': 0,
         'to': 0
       },
-      offset: 3
+      offset: 3,
+      criterio: 'nombre',
+      buscar: ''
     };
   },
   computed: {
@@ -2073,10 +2084,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    listarCategoria: function listarCategoria(page) {
+    listarCategoria: function listarCategoria(page, buscar) {
       var me = this;
-      var url = '/categoria?page=' + page;
-      axios.get('/categoria').then(function (response) {
+      var url = '/categoria?page=' + page + '&buscar=' + buscar;
+      axios.get(url).then(function (response) {
         var respuesta = response.data;
         me.arrayCategoria = respuesta.categoria.data;
         me.pagination = respuesta.pagination;
@@ -2085,10 +2096,10 @@ __webpack_require__.r(__webpack_exports__);
       })["finally"](function () {// always executed
       });
     },
-    cambiarPagina: function cambiarPagina(page) {
+    cambiarPagina: function cambiarPagina(page, buscar) {
       var me = this;
       me.pagination.current_page = page;
-      me.listarCategoria(page);
+      me.listarCategoria(page, buscar);
     },
     registrarCategoria: function registrarCategoria() {
       if (this.validarCategoria()) {
@@ -2101,7 +2112,7 @@ __webpack_require__.r(__webpack_exports__);
         'ca_desc': this.ca_desc
       }).then(function (response) {
         me.cerrarModal();
-        me.listarCategoria();
+        me.listarCategoria(1, '');
       })["catch"](function (response) {
         console.log(error);
       });
@@ -2118,7 +2129,7 @@ __webpack_require__.r(__webpack_exports__);
         'idcategoria': this.categoria_id
       }).then(function (response) {
         me.cerrarModal();
-        me.listarCategoria();
+        me.listarCategoria(1, '');
       })["catch"](function (response) {
         console.log(error);
       });
@@ -2146,7 +2157,7 @@ __webpack_require__.r(__webpack_exports__);
           axios.put('/categoria/desactivar', {
             'idcategoria': id
           }).then(function (response) {
-            me.listarCategoria();
+            me.listarCategoria(1, '');
             swalWithBootstrapButtons.fire('Desactivado', 'Fue desactivado con éxito.', 'success');
           })["catch"](function (response) {
             console.log(error);
@@ -2179,7 +2190,7 @@ __webpack_require__.r(__webpack_exports__);
           axios.put('/categoria/activar', {
             'idcategoria': id
           }).then(function (response) {
-            me.listarCategoria();
+            me.listarCategoria(1, '');
             swalWithBootstrapButtons.fire('Activado', 'Fue activado con éxito.', 'success');
           })["catch"](function (response) {
             console.log(error);
@@ -2240,7 +2251,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     //  console.log('Component mounted.')
-    this.listarCategoria();
+    this.listarCategoria(1, this.buscar);
   }
 });
 
@@ -38534,6 +38545,72 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-block icon-btn" }, [
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("label", { staticClass: "col-sm-2 col-form-label" }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-4" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.buscar,
+                          expression: "buscar"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        autocomplete: "off",
+                        placeholder: "Texto a buscar"
+                      },
+                      domProps: { value: _vm.buscar },
+                      on: {
+                        keyup: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.listarCategoria(1, _vm.buscar)
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.buscar = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-4" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-primary btn-sm",
+                        attrs: { type: "submit" },
+                        on: {
+                          click: function($event) {
+                            return _vm.listarCategoria(1, _vm.buscar)
+                          }
+                        }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-search" }),
+                        _vm._v(" Buscar ")
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
                 _c("div", { staticClass: "dt-responsive table-responsive" }, [
                   _c("div", { staticClass: "table-responsive" }, [
                     _c("table", { staticClass: "table table-xs" }, [
@@ -38692,7 +38769,8 @@ var render = function() {
                                         click: function($event) {
                                           $event.preventDefault()
                                           return _vm.cambiarPagina(
-                                            _vm.pagination.current_page - 1
+                                            _vm.pagination.current_page - 1,
+                                            _vm.buscar
                                           )
                                         }
                                       }
@@ -38728,7 +38806,10 @@ var render = function() {
                                     on: {
                                       click: function($event) {
                                         $event.preventDefault()
-                                        return _vm.cambiarPagina(page)
+                                        return _vm.cambiarPagina(
+                                          page,
+                                          _vm.buscar
+                                        )
                                       }
                                     }
                                   })
@@ -38751,7 +38832,8 @@ var render = function() {
                                         click: function($event) {
                                           $event.preventDefault()
                                           return _vm.cambiarPagina(
-                                            _vm.pagination.current_page + 1
+                                            _vm.pagination.current_page + 1,
+                                            _vm.buscar
                                           )
                                         }
                                       }
