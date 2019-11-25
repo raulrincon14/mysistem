@@ -11,7 +11,7 @@
                         <li class="breadcrumb-item">
                             <a href="./index.html"> <i class="fa fa-home"></i> </a>
                         </li>
-                        <li class="breadcrumb-item"><a href="#!">Marca</a>
+                        <li class="breadcrumb-item"><a href="#!">Unidad de Medida</a>
                         </li>
                     </ul>
                 </div>
@@ -28,13 +28,13 @@
                         <div class="row align-items-center">
                             <div class="col-md-5">
                                 <div class="card-header">
-                                    <h5>Marcas</h5>
+                                    <h5>Unidad de Medida</h5>
                                     <span>Agregar, editar y desactivar.</span>
                                 </div>
                             </div>
                             <div class="col-md-7">
                                 <div class="botona">
-                                    <button type="button" @click="abrirModal('marca','registrar')" class="btn btn-outline-primary btn-sm"><i class="icofont icofont-ui-add"></i>Nuevo</button>
+                                    <button type="button" @click="abrirModal('unidad','registrar')" class="btn btn-outline-primary btn-sm"><i class="icofont icofont-ui-add"></i>Nuevo</button>
                                 </div>
                             </div>
                         </div>
@@ -43,10 +43,10 @@
                           <div class="form-group row">
                               <label class="col-sm-2 col-form-label"></label>
                               <div class="col-sm-4">
-                                  <input type="text" autocomplete="off" v-model="buscar" @keyup.enter="listarMarca(1,buscar)" placeholder="Texto a buscar" class="form-control" />
+                                  <input type="text" autocomplete="off" v-model="buscar" @keyup.enter="listarUnidad(1,buscar)" placeholder="Texto a buscar" class="form-control" />
                               </div>
                               <div class="col-sm-4">
-                                  <button type="submit" class="btn btn-outline-primary btn-sm"  @click="listarMarca(1,buscar)"><i class="fa fa-search"></i> Buscar </button>
+                                  <button type="submit" class="btn btn-outline-primary btn-sm"  @click="listarUnidad(1,buscar)"><i class="fa fa-search"></i> Buscar </button>
                               </div>
                           </div>
                             <div class="dt-responsive table-responsive">
@@ -58,33 +58,33 @@
                                                 <th>Nombre</th>
                                                 <th>descripcion</th>
                                                 <th>Estado</th>
-                                                <th>Acciones</th>
+                                                <th>Estado</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="marca in arrayMarca" :key="marca.idmarca">
-                                                <th v-text="marca.idmarca"></th>
-                                                <td v-text="marca.ma_nombre"></td>
-                                                <td v-text="marca.ma_desc"></td>
+                                            <tr v-for="unidad in arrayUnidad" :key="unidad.idunidad">
+                                                <th v-text="unidad.idunidad"></th>
+                                                <td v-text="unidad.u_nombre"></td>
+                                                <td v-text="unidad.u_abre"></td>
                                                 <td>
-                                                    <div v-if="marca.ma_estado">
+                                                    <div v-if="unidad.u_estado">
                                                         <label class="label label-inverse-success">Activo</label>
                                                     </div>
-                                                    <div v-else="marca.ma_estado">
+                                                    <div v-else="unidad.u_estado">
                                                         <label class="label label-inverse-danger">Desactivado</label>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                  <button type="button" @click="abrirModal('marca','actualizar',marca)" class="btn waves-effect waves-dark btn-warning btn-outline-warning btn-iconr">
+                                                  <button type="button" @click="abrirModal('unidad','actualizar',unidad)" class="btn waves-effect waves-dark btn-warning btn-outline-warning btn-iconr">
                                                         <i class="ti-marker-alt"></i>
                                                     </button>&nbsp;
-                                                    <template v-if="marca.ma_estado">
-                                                      <button type="button" class="btn waves-effect waves-dark btn-danger btn-outline-danger btn-iconr" @click="desactivarMarca(marca.idmarca)">
+                                                    <template v-if="unidad.u_estado">
+                                                      <button type="button" class="btn waves-effect waves-dark btn-danger btn-outline-danger btn-iconr" @click="desactivarUnidad(unidad.idunidad)">
                                                           <i class="fa fa-trash"></i>
                                                       </button>
                                                     </template>
-                                                    <template v-else="marca.ma_estado">
-                                                      <button type="button" class="btn waves-effect waves-dark btn-info btn-outline-info btn-iconr" @click="activarMarca(marca.idmarca)">
+                                                    <template v-else="unidad.u_estado">
+                                                      <button type="button" class="btn waves-effect waves-dark btn-info btn-outline-info btn-iconr" @click="activarUnidad(unidad.idunidad)">
                                                           <i class="fa fa-check"></i>
                                                       </button>
                                                     </template>
@@ -132,18 +132,18 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Nombre (*)</label>
                                         <div class="col-sm-9">
-                                            <input type="text" v-model="ma_nombre" autocomplete="off" placeholder="Nombre de la Marca" class="form-control" />
+                                            <input type="text" v-model="u_nombre" autocomplete="off" placeholder="Nombre de Unidad de Medida" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Descripción</label>
+                                        <label class="col-sm-3 col-form-label">Descripción (*)</label>
                                         <div class="col-sm-9">
-                                            <input type="text" v-model="ma_desc" class="form-control" placeholder="Breve descripción" />
+                                            <input type="text" v-model="u_abre" class="form-control" placeholder="Digite la abreviatura" />
                                         </div>
                                     </div>
                                     </form>
                                     <div class="form-group row">
-                                      <div v-show="errorMarca" class="div-error col-sm-12">
+                                      <div v-show="errorUnidad" class="div-error col-sm-12">
                                         <div class="text-error col-sm-12 text-center">
                                           <div v-for="error in errorMostrarMsj" :key="error" v-text="error">
                                           </div>
@@ -154,9 +154,9 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="text-center m-t-20">
-                                                <button type="button" v-if="tipoAccion==1" class="btn btn-primary waves-effect waves-light m-r-10" @click="registrarMarca()">Guardar
+                                                <button type="button" v-if="tipoAccion==1" class="btn btn-primary waves-effect waves-light m-r-10" @click="registrarUnidad()">Guardar
                                                 </button>
-                                                <button type="button" v-if="tipoAccion==2" class="btn btn-primary waves-effect waves-light m-r-10" @click="actualizarMarca()">Actualizar
+                                                <button type="button" v-if="tipoAccion==2" class="btn btn-primary waves-effect waves-light m-r-10" @click="actualizarUnidad()">Actualizar
                                                 </button>
                                                 <button type="button" @click="cerrarModal()" class="btn btn-warning waves-effect waves-light">Cerrar
                                                 </button>
@@ -191,14 +191,14 @@
 export default {
     data() {
         return {
-            marca_id:0,
-            ma_nombre: '',
-            ma_desc: '',
-            arrayMarca: [],
+            unidad_id:0,
+            u_nombre: '',
+            u_abre: '',
+            arrayUnidad: [],
             modal:0,
             tituloModal: '',
             tipoAccion:0,
-            errorMarca: 0,
+            errorUnidad: 0,
             errorMostrarMsj: [],
             pagination : {
               'total' : 0,
@@ -242,12 +242,12 @@ export default {
         }
     },
     methods: {
-        listarMarca(page, buscar) {
+        listarUnidad(page, buscar) {
             let me = this;
-            var url='/marca?page=' + page + '&buscar=' + buscar;
+            var url='/unidad?page=' + page + '&buscar=' + buscar;
             axios.get(url).then(function(response) {
                     var respuesta = response.data;
-                    me.arrayMarca = respuesta.marca.data;
+                    me.arrayUnidad = respuesta.unidad.data;
                     me.pagination = respuesta.pagination;
                 })
                 .catch(function(error) {
@@ -262,46 +262,46 @@ export default {
           let me=this;
 
           me.pagination.current_page = page;
-          me.listarMarca(page, buscar);
+          me.listarUnidad(page, buscar);
         },
-        registrarMarca(){
-            if (this.validarMarca()) {
+        registrarUnidad(){
+            if (this.validarUnidad()) {
               return;
             }
 
           let me=this;
 
-              axios.post('/marca/registrar',{
-                'ma_nombre' : this.ma_nombre,
-                'ma_desc': this.ma_desc
+              axios.post('/unidad/registrar',{
+                'u_nombre' : this.u_nombre,
+                'u_abre': this.u_abre
                 }).then(function (response) {
                   me.cerrarModal();
-                  me.listarMarca(1,'');
+                  me.listarUnidad(1,'');
                 })
                 .catch(function (response) {
                   console.log(error);
                 });
         },
-        actualizarMarca(){
-          if (this.validarMarca()) {
+        actualizarUnidad(){
+          if (this.validarUnidad()) {
             return;
           }
 
           let me=this;
 
-            axios.put('/marca/actualizar',{
-              'ma_nombre' : this.ma_nombre,
-              'ma_desc': this.ma_desc,
-              'idmarca': this.marca_id
+            axios.put('/unidad/actualizar',{
+              'u_nombre' : this.u_nombre,
+              'u_abre': this.u_abre,
+              'idunidad': this.unidad_id
               }).then(function (response) {
                 me.cerrarModal();
-                me.listarMarca(1,'');
+                me.listarUnidad(1,'');
               })
               .catch(function (response) {
                 console.log(error);
               });
         },
-        desactivarMarca(id){
+        desactivarUnidad(id){
           const swalWithBootstrapButtons = Swal.mixin({
               customClass: {
                 confirmButton: 'btn btn-success',
@@ -311,7 +311,7 @@ export default {
             })
 
             swalWithBootstrapButtons.fire({
-              title: 'Está seguro de desactivar esta marca?',
+              title: 'Está seguro de desactivar esta categoria?',
               icon: 'warning',
               showCancelButton: true,
               confirmButtonText: 'Aceptar!',
@@ -321,10 +321,10 @@ export default {
               if (result.value) {
                 let me=this;
 
-                  axios.put('/marca/desactivar',{
-                    'idmarca': id
+                  axios.put('/unidad/desactivar',{
+                    'idunidad': id
                     }).then(function (response) {
-                      me.listarMarca(1,'');
+                      me.listarUnidad(1,'');
                       swalWithBootstrapButtons.fire(
                         'Desactivado',
                         'Fue desactivado con éxito.',
@@ -342,7 +342,7 @@ export default {
               }
             })
         },
-        activarMarca(id){
+        activarUnidad(id){
           const swalWithBootstrapButtons = Swal.mixin({
               customClass: {
                 confirmButton: 'btn btn-success',
@@ -352,7 +352,7 @@ export default {
             })
 
             swalWithBootstrapButtons.fire({
-              title: 'Está seguro de activar esta categoria?',
+              title: 'Está seguro de activar esta unidad de medida?',
               icon: 'warning',
               showCancelButton: true,
               confirmButtonText: 'Aceptar!',
@@ -362,10 +362,10 @@ export default {
               if (result.value) {
                 let me=this;
 
-                  axios.put('/marca/activar',{
-                    'idmarca': id
+                  axios.put('/unidad/activar',{
+                    'idunidad': id
                     }).then(function (response) {
-                      me.listarMarca(1,'');
+                      me.listarUnidad(1,'');
                       swalWithBootstrapButtons.fire(
                         'Activado',
                         'Fue activado con éxito.',
@@ -383,42 +383,43 @@ export default {
               }
             })
         },
-        validarMarca(){
-          this.errorMarca=0;
+        validarUnidad(){
+          this.errorUnidad=0;
           this.errorMostrarMsj=[];
-          if (!this.ma_nombre) this.errorMostrarMsj.push("El nombre de la marca no puede estar vacio.");
-          if(this.errorMostrarMsj.length) this.errorMarca = 1;
-            return this.errorMarca;
+          if (!this.u_nombre) this.errorMostrarMsj.push("El nombre de la unidad no puede estar vacio.");
+          if (!this.u_abre) this.errorMostrarMsj.push("La abreviatura de la unidad no puede estar vacio.");
+          if(this.errorMostrarMsj.length) this.errorUnidad = 1;
+            return this.errorUnidad;
         },
         cerrarModal(){
           this.modal=0;
           this.tituloModal='';
-          this.ma_nombre='';
-          this.ma_desc='';
+          this.u_nombre='';
+          this.u_abre='';
           this.tipoAccion=0;
-          this.errorMarca = 0;
+          this.errorUnidad = 0;
           this.errorMostrarMsj= [];
         },
         abrirModal(modelo, accion, data = []){
           switch (modelo) {
-            case "marca":{
+            case "unidad":{
                 switch (accion) {
                   case 'registrar':{
                     this.modal = 1;
-                    this.tituloModal = 'Nueva Marca'
-                    this.ma_nombre = '';
-                    this.ma_desc = '';
+                    this.tituloModal = 'Nueva Unidad de Medida'
+                    this.ca_nombre = '';
+                    this.ca_desc = '';
                     this.tipoAccion=1;
                     break;
                   }
                   case 'actualizar':{
                      console.log(data);
                     this.modal = 1;
-                    this.tituloModal ='Actualizar Marca';
+                    this.tituloModal ='Actualizar Unidad de Medida';
                     this.tipoAccion=2;
-                    this.marca_id = data['idmarca'];
-                    this.ma_nombre=data['ma_nombre'];
-                    this.ma_desc = data['ma_desc'];
+                    this.unidad_id = data['idunidad'];
+                    this.u_nombre=data['u_nombre'];
+                    this.u_abre = data['u_abre'];
                     break;
                   }
                 }
@@ -429,7 +430,7 @@ export default {
     },
     mounted() {
         //  console.log('Component mounted.')
-        this.listarMarca(1, this.buscar);
+        this.listarUnidad(1, this.buscar);
     }
 }
 </script>

@@ -12,10 +12,27 @@ class TipoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-      $tipo = Tipo::all();
-      return $tipo;
+    public function index(Request $request){
+
+      $buscar = $request -> buscar;
+      // $marca = Marca::paginate(10);
+      if ($buscar=='') {
+        $tipo = Tipo::orderBy('idtipo')->paginate(3);
+      }else {
+        $tipo = Tipo::where('ti_nombre','like','%'. $buscar .'%')->orderBy('idtipo')->paginate(3);
+      }
+
+      return [
+        'pagination' => [
+          'total'           => $tipo->total(),
+          'current_page'    => $tipo->currentPage(),
+          'per_page'        => $tipo->perPage(),
+          'last_page'       => $tipo->lastPage(),
+          'from'            => $tipo->firstItem(),
+          'to'              => $tipo->lastItem(),
+        ],
+        'tipo' => $tipo
+      ];
     }
 
     /**
@@ -40,7 +57,7 @@ class TipoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
       $tipo = Tipo::findOrFail($request->idtipo);
       $tipo->ti_nombre = $request->ti_nombre;

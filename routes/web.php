@@ -25,3 +25,15 @@ Route::post('/marca/registrar','MarcaController@store');
 Route::put('/marca/actualizar','MarcaController@update');
 Route::put('/marca/desactivar','MarcaController@desactivar');
 Route::put('/marca/activar','MarcaController@activar');
+
+Route::get('/tipo','TipoController@index');
+Route::post('/tipo/registrar','TipoController@store');
+Route::put('/tipo/actualizar','TipoController@update');
+Route::put('/tipo/desactivar','TipoController@desactivar');
+Route::put('/tipo/activar','TipoController@activar');
+
+Route::get('/unidad','UnidadController@index');
+Route::post('/unidad/registrar','UnidadController@store');
+Route::put('/unidad/actualizar','UnidadController@update');
+Route::put('/unidad/desactivar','UnidadController@desactivar');
+Route::put('/unidad/activar','UnidadController@activar');

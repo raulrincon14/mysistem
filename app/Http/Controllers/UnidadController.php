@@ -12,10 +12,29 @@ class UnidadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-      $unidad = Unidad::all();
-      return $unidad;
+      // if (!$request->ajax()) return redirect('/');
+     // $categoria = Categoria::all();
+     $buscar = $request -> buscar;
+     // $categoria = Categoria::paginate(10);
+     if ($buscar=='') {
+       $unidad = Unidad::orderBy('idunidad')->paginate(3);
+     }else {
+       $unidad = Unidad::where('u_nombre','like','%'. $buscar .'%')->orderBy('idunidad')->paginate(3);
+     }
+
+     return [
+       'pagination' => [
+         'total'           => $unidad->total(),
+         'current_page'    => $unidad->currentPage(),
+         'per_page'        => $unidad->perPage(),
+         'last_page'       => $unidad->lastPage(),
+         'from'            => $unidad->firstItem(),
+         'to'              => $unidad->lastItem(),
+       ],
+       'unidad' => $unidad
+     ];
     }
 
     /**
@@ -40,9 +59,9 @@ class UnidadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-      $unidad = Marca::findOrFail($request->idunidad);
+      $unidad = Unidad::findOrFail($request->idunidad);
       $unidad->u_nombre = $request->u_nombre;
       $unidad->u_abre = $request->u_abre;
       $unidad->u_estado = '1';
@@ -58,7 +77,7 @@ class UnidadController extends Controller
     }
     public function activar(Request $request)
     {
-      $unidad = Tipo::findOrFail($request->idunidad);
+      $unidad = Unidad::findOrFail($request->idunidad);
       $unidad->u_estado = '1';
       $unidad->save();
 

@@ -18,4 +18,10 @@
   <template v-if="menu==5">
     <marca></marca>
   </template>
+  <template v-if="menu==6">
+    <unidad></unidad>
+  </template>
+  <template v-if="menu==7">
+    <tipo></tipo>
+  </template>
 @endsection
