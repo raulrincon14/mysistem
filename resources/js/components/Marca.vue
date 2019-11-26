@@ -434,7 +434,7 @@ export default {
 }
 </script>
 <style media="screen">
-.modal-content{
+/* .modal-content{
   width: 100% !important;
   position: absolute !important;
   border: 0px !important;
@@ -444,7 +444,7 @@ export default {
     opacity: 1 !important;
     position: absolute !important;
     background-color: #3c29297a !important;
-  }
+  } */
   .div-error{
     color: red !important;
     font-weight: bold;

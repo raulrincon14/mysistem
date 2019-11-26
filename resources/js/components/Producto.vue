@@ -133,49 +133,149 @@
                     </div>
                     <!-- `New` Constructor table end -->
                     <div class="modal fade" id="large-Modal" :class="{'mostrar':modal}" tabindex="-1" role="dialog">
-                        <div class="modal-dialog modal-md" role="document">
+                        <div class="modal-dialog modal-lg" role="document">
                           <div class="modal-content">
                             <div class="card">
                                 <div class="card-header">
                                     <h5 v-text="tituloModal"></h5>
                                 </div>
                                 <div class="card-block">
-                                    <form action="" method="post" enctype="multipart/form-data">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Nombre (*)</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" v-model="u_nombre" autocomplete="off" placeholder="Nombre de Unidad de Medida" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Descripción (*)</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" v-model="u_abre" class="form-control" placeholder="Digite la abreviatura" />
-                                        </div>
-                                    </div>
-                                    </form>
-                                    <div class="form-group row">
-                                      <div v-show="errorUnidad" class="div-error col-sm-12">
-                                        <div class="text-error col-sm-12 text-center">
-                                          <div v-for="error in errorMostrarMsj" :key="error" v-text="error">
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
 
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="text-center m-t-20">
-                                                <button type="button" v-if="tipoAccion==1" class="btn btn-primary waves-effect waves-light m-r-10" @click="registrarUnidad()">Guardar
-                                                </button>
-                                                <button type="button" v-if="tipoAccion==2" class="btn btn-primary waves-effect waves-light m-r-10" @click="actualizarUnidad()">Actualizar
-                                                </button>
-                                                <button type="button" @click="cerrarModal()" class="btn btn-warning waves-effect waves-light">Cerrar
-                                                </button>
+                                    <form action="#" class="form-material" />
+                                        <div class="row">
+                                            <div class="col-sm-4 m-b-3">
+                                                <div class="form-group form-primary">
+                                                  <label class="col-sm col-form-label">Nombre (*)</label>
+                                                  <div class="col-sm">
+                                                      <input type="text" v-model="u_nombre" autocomplete="off" placeholder="Nombre del Producto" class="form-control" />
+                                                  </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 m-b-5">
+                                                <div class="form-group form-primary">
+                                                  <label class="col-sm col-form-label">Descripcion</label>
+                                                  <div class="col-sm">
+                                                      <input type="text" v-model="u_nombre" autocomplete="off" placeholder="Breve descripción del Producto" class="form-control" />
+                                                  </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 m-b-5 border-checkbox-section justify-content-center align-items-center">
+                                              <div class="border-checkbox-group border-checkbox-group-primary">
+                                                  <input class="border-checkbox" type="checkbox" id="checkbox1" />
+                                                  <label class="border-checkbox-label" for="checkbox1">No tiene lote</label>
+                                              </div>
                                             </div>
                                         </div>
-                                    </div>
 
+                                        <div class="row">
+                                            <div class="col-sm-4 m-b-5">
+                                              <div class="form-group form-primary">
+                                                <label class="col-sm col-form-label">Precio Compra </label>
+                                                <div class="col-sm">
+                                                    <input type="text" v-model="u_nombre" autocomplete="off" placeholder="Nombre del Producto" class="form-control" />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-sm-4 m-b-5">
+                                              <div class="form-group form-primary">
+                                                <label class="col-sm col-form-label">Precio Venta (*)</label>
+                                                <div class="col-sm">
+                                                    <input type="text" v-model="u_nombre" autocomplete="off" placeholder="Nombre del Producto" class="form-control" />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-sm-4 m-b-5">
+                                              <div class="form-group form-primary">
+                                                <label class="col-sm col-form-label">Codigo de Barra</label>
+                                                <div class="col-sm">
+                                                    <input type="text" v-model="u_nombre" autocomplete="off" placeholder="Nombre del Producto" class="form-control" />
+                                                </div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-sm-4 m-b-5">
+                                            <div class="form-group form-primary">
+                                              <label class="col-sm col-form-label">Categoria (*)</label>
+                                              <div class="col-sm">
+                                                <select name="select" class="form-control">
+                                                    <option value="">Seleccionar</option>
+                                                    <option value="">adsas</option>
+                                                    <option value="">dsad</option>
+                                                </select>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-sm-4 m-b-5">
+                                            <div class="form-group form-primary">
+                                              <label class="col-sm col-form-label">Marca (*)</label>
+                                              <div class="col-sm">
+                                                <select name="select" class="form-control">
+                                                    <option value="">Seleccionar</option>
+                                                    <option value="">adsas</option>
+                                                    <option value="">dsad</option>
+                                                </select>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-sm-4 m-b-5">
+                                            <div class="form-group form-primary">
+                                              <label class="col-sm col-form-label">Tipo (*)</label>
+                                              <div class="col-sm">
+                                                <select name="select" class="form-control">
+                                                    <option value="">Seleccionar</option>
+                                                    <option value="">adsas</option>
+                                                    <option value="">dsad</option>
+                                                </select>
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-sm-4 m-b-5">
+                                            <div class="form-group form-primary">
+                                              <label class="col-sm col-form-label">Stock Minimo (*)</label>
+                                              <div class="col-sm">
+                                                  <input type="text" v-model="u_nombre" autocomplete="off" placeholder="Nombre del Producto" class="form-control" />
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-sm-4 m-b-5">
+                                            <div class="form-group form-primary">
+                                              <label class="col-sm col-form-label">Unidad de Medida (*)</label>
+                                              <div class="col-sm">
+                                                  <input type="text" v-model="u_nombre" autocomplete="off" placeholder="Nombre del Producto" class="form-control" />
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-sm-4 m-b-5">
+                                            <div class="form-group form-primary">
+                                              <label class="col-sm col-form-label">Seleccione Unidad (*)</label>
+                                              <div class="col-sm">
+                                                <select name="select" class="form-control">
+                                                    <option value="">Seleccionar</option>
+                                                    <option value="">adsas</option>
+                                                    <option value="">dsad</option>
+                                                </select>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="text-center m-t-1">
+                                            <button type="button" v-if="tipoAccion==1" class="btn btn-primary waves-effect waves-light m-r-10" @click="registrarProducto()">Guardar
+                                            </button>
+                                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary waves-effect waves-light m-r-10" @click="actualizarProducto()">Actualizar
+                                            </button>
+                                            <button type="button" @click="cerrarModal()" class="btn btn-warning waves-effect waves-light">Cerrar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div> <p></p>
                                   </div>
                             </div>
                         </div>
@@ -208,10 +308,10 @@ export default {
             ca_desc: '',
             pr_nombre: '',
             pr_desc: '',
-            pr_precioc: '',
-            pr_preciov: '',
+            pr_precioc: 0,
+            pr_preciov: 0,
             pr_estado: '',
-            pr_stkmin: '',
+            pr_stkmin: 0,
             pr_medida: '',
             pr_igv: '',
             pr_cb: '',
@@ -285,8 +385,8 @@ export default {
           me.pagination.current_page = page;
           me.listarProducto(page, buscar);
         },
-        registrarUnidad(){
-            if (this.validarUnidad()) {
+        registrarProducto(){
+            if (this.validarProducto()) {
               return;
             }
 
@@ -404,7 +504,7 @@ export default {
               }
             })
         },
-        validarUnidad(){
+        validarProducto(){
           this.errorUnidad=0;
           this.errorMostrarMsj=[];
           if (!this.u_nombre) this.errorMostrarMsj.push("El nombre de la unidad no puede estar vacio.");
@@ -415,32 +515,54 @@ export default {
         cerrarModal(){
           this.modal=0;
           this.tituloModal='';
-          this.u_nombre='';
-          this.u_abre='';
-          this.tipoAccion=0;
-          this.errorUnidad = 0;
-          this.errorMostrarMsj= [];
+          this.ca_nombre= '';
+          this.ca_desc= '';
+          this.pr_nombre= '';
+          this.pr_desc= '';
+          this.pr_precioc= 0;
+          this.pr_preciov= 0;
+          this.pr_estado= '';
+          this.pr_stkmin= 0;
+          this.pr_medida= '';
+          this.pr_igv= '';
+          this.pr_cb= '';
+          this.errorProducto = 0;
         },
         abrirModal(modelo, accion, data = []){
           switch (modelo) {
-            case "unidad":{
+            case "producto":{
                 switch (accion) {
                   case 'registrar':{
                     this.modal = 1;
-                    this.tituloModal = 'Nueva Unidad de Medida'
-                    this.ca_nombre = '';
-                    this.ca_desc = '';
-                    this.tipoAccion=1;
+                    this.tituloModal = 'Nuevo Producto'
+                    this.ca_nombre= '';
+                    this.ca_desc= '';
+                    this.pr_nombre= '';
+                    this.pr_desc= '';
+                    this.pr_precioc= 0;
+                    this.pr_preciov= 0;
+                    this.pr_estado= '';
+                    this.pr_stkmin= 0;
+                    this.pr_medida= '';
+                    this.pr_igv= '';
+                    this.pr_cb= '';
                     break;
                   }
                   case 'actualizar':{
                      console.log(data);
                     this.modal = 1;
-                    this.tituloModal ='Actualizar Unidad de Medida';
+                    this.tituloModal ='Actualizar Producto';
+                    this.producto_id = data['idcategoria'];
                     this.tipoAccion=2;
-                    this.unidad_id = data['idunidad'];
-                    this.u_nombre=data['u_nombre'];
-                    this.u_abre = data['u_abre'];
+                    this.ca_nombre= data['ca_nombre'];
+                    this.pr_nombre= data['pr_nombre'];
+                    this.pr_desc= data['pr_desc'];
+                    this.pr_precioc= data['pr_precioc'];
+                    this.pr_preciov= data['pr_preciov'];
+                    this.pr_stkmin= data['pr_stkmin'];
+                    this.pr_medida= data['pr_medida'];
+                    this.pr_igv= data['pr_igv'];
+                    this.pr_cb= data['pr_cb'];
                     break;
                   }
                 }
@@ -458,13 +580,15 @@ export default {
 <style media="screen">
 .modal-content{
   width: 100% !important;
+  height: 100% !important;
   position: absolute !important;
   border: 0px !important;
+  /* overflow-y: auto !important; */
 }
   .mostrar{
     display: list-item !important;
     opacity: 1 !important;
-    position: absolute !important;
+    /* position: absolute !important; */
     background-color: #3c29297a !important;
   }
   .div-error{

@@ -2895,6 +2895,106 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2903,10 +3003,10 @@ __webpack_require__.r(__webpack_exports__);
       ca_desc: '',
       pr_nombre: '',
       pr_desc: '',
-      pr_precioc: '',
-      pr_preciov: '',
+      pr_precioc: 0,
+      pr_preciov: 0,
       pr_estado: '',
-      pr_stkmin: '',
+      pr_stkmin: 0,
       pr_medida: '',
       pr_igv: '',
       pr_cb: '',
@@ -2978,8 +3078,8 @@ __webpack_require__.r(__webpack_exports__);
       me.pagination.current_page = page;
       me.listarProducto(page, buscar);
     },
-    registrarUnidad: function registrarUnidad() {
-      if (this.validarUnidad()) {
+    registrarProducto: function registrarProducto() {
+      if (this.validarProducto()) {
         return;
       }
 
@@ -3077,7 +3177,7 @@ __webpack_require__.r(__webpack_exports__);
         result.dismiss === Swal.DismissReason.cancel) {}
       });
     },
-    validarUnidad: function validarUnidad() {
+    validarProducto: function validarProducto() {
       this.errorUnidad = 0;
       this.errorMostrarMsj = [];
       if (!this.u_nombre) this.errorMostrarMsj.push("El nombre de la unidad no puede estar vacio.");
@@ -3088,26 +3188,41 @@ __webpack_require__.r(__webpack_exports__);
     cerrarModal: function cerrarModal() {
       this.modal = 0;
       this.tituloModal = '';
-      this.u_nombre = '';
-      this.u_abre = '';
-      this.tipoAccion = 0;
-      this.errorUnidad = 0;
-      this.errorMostrarMsj = [];
+      this.ca_nombre = '';
+      this.ca_desc = '';
+      this.pr_nombre = '';
+      this.pr_desc = '';
+      this.pr_precioc = 0;
+      this.pr_preciov = 0;
+      this.pr_estado = '';
+      this.pr_stkmin = 0;
+      this.pr_medida = '';
+      this.pr_igv = '';
+      this.pr_cb = '';
+      this.errorProducto = 0;
     },
     abrirModal: function abrirModal(modelo, accion) {
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
       switch (modelo) {
-        case "unidad":
+        case "producto":
           {
             switch (accion) {
               case 'registrar':
                 {
                   this.modal = 1;
-                  this.tituloModal = 'Nueva Unidad de Medida';
+                  this.tituloModal = 'Nuevo Producto';
                   this.ca_nombre = '';
                   this.ca_desc = '';
-                  this.tipoAccion = 1;
+                  this.pr_nombre = '';
+                  this.pr_desc = '';
+                  this.pr_precioc = 0;
+                  this.pr_preciov = 0;
+                  this.pr_estado = '';
+                  this.pr_stkmin = 0;
+                  this.pr_medida = '';
+                  this.pr_igv = '';
+                  this.pr_cb = '';
                   break;
                 }
 
@@ -3115,11 +3230,18 @@ __webpack_require__.r(__webpack_exports__);
                 {
                   console.log(data);
                   this.modal = 1;
-                  this.tituloModal = 'Actualizar Unidad de Medida';
+                  this.tituloModal = 'Actualizar Producto';
+                  this.producto_id = data['idcategoria'];
                   this.tipoAccion = 2;
-                  this.unidad_id = data['idunidad'];
-                  this.u_nombre = data['u_nombre'];
-                  this.u_abre = data['u_abre'];
+                  this.ca_nombre = data['ca_nombre'];
+                  this.pr_nombre = data['pr_nombre'];
+                  this.pr_desc = data['pr_desc'];
+                  this.pr_precioc = data['pr_precioc'];
+                  this.pr_preciov = data['pr_preciov'];
+                  this.pr_stkmin = data['pr_stkmin'];
+                  this.pr_medida = data['pr_medida'];
+                  this.pr_igv = data['pr_igv'];
+                  this.pr_cb = data['pr_cb'];
                   break;
                 }
             }
@@ -8449,7 +8571,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.modal-content{\r\n  width: 100% !important;\r\n  position: absolute !important;\r\n  border: 0px !important;\n}\n.mostrar{\r\n    display: list-item !important;\r\n    opacity: 1 !important;\r\n    position: absolute !important;\r\n    background-color: #3c29297a !important;\n}\n.div-error{\r\n    color: red !important;\r\n    font-weight: bold;\r\n    height: 10px;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* .modal-content{\r\n  width: 100% !important;\r\n  position: absolute !important;\r\n  border: 0px !important;\r\n}\r\n  .mostrar{\r\n    display: list-item !important;\r\n    opacity: 1 !important;\r\n    position: absolute !important;\r\n    background-color: #3c29297a !important;\r\n  } */\n.div-error{\r\n    color: red !important;\r\n    font-weight: bold;\r\n    height: 10px;\n}\r\n", ""]);
 
 // exports
 
@@ -8468,7 +8590,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.modal-content{\r\n  width: 100% !important;\r\n  position: absolute !important;\r\n  border: 0px !important;\n}\n.mostrar{\r\n    display: list-item !important;\r\n    opacity: 1 !important;\r\n    position: absolute !important;\r\n    background-color: #3c29297a !important;\n}\n.div-error{\r\n    color: red !important;\r\n    font-weight: bold;\r\n    height: 10px;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* .modal-content{\r\n  width: 100% !important;\r\n  position: absolute !important;\r\n  border: 0px !important;\r\n}\r\n  .mostrar{\r\n    display: list-item !important;\r\n    opacity: 1 !important;\r\n    position: absolute !important;\r\n    background-color: #3c29297a !important;\r\n  } */\n.div-error{\r\n    color: red !important;\r\n    font-weight: bold;\r\n    height: 10px;\n}\r\n", ""]);
 
 // exports
 
@@ -8487,7 +8609,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.modal-content{\r\n  width: 100% !important;\r\n  position: absolute !important;\r\n  border: 0px !important;\n}\n.mostrar{\r\n    display: list-item !important;\r\n    opacity: 1 !important;\r\n    position: absolute !important;\r\n    background-color: #3c29297a !important;\n}\n.div-error{\r\n    color: red !important;\r\n    font-weight: bold;\r\n    height: 10px;\n}\r\n", ""]);
+exports.push([module.i, "\n.modal-content{\r\n  width: 100% !important;\r\n  height: 100% !important;\r\n  position: absolute !important;\r\n  border: 0px !important;\r\n  /* overflow-y: auto !important; */\n}\n.mostrar{\r\n    display: list-item !important;\r\n    opacity: 1 !important;\r\n    /* position: absolute !important; */\r\n    background-color: #3c29297a !important;\n}\n.div-error{\r\n    color: red !important;\r\n    font-weight: bold;\r\n    height: 10px;\n}\r\n", ""]);
 
 // exports
 
@@ -8506,7 +8628,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.modal-content{\r\n  width: 100% !important;\r\n  position: absolute !important;\r\n  border: 0px !important;\n}\n.mostrar{\r\n    display: list-item !important;\r\n    opacity: 1 !important;\r\n    position: absolute !important;\r\n    background-color: #3c29297a !important;\n}\n.div-error{\r\n    color: red !important;\r\n    font-weight: bold;\r\n    height: 10px;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* .modal-content{\r\n  width: 100% !important;\r\n  position: absolute !important;\r\n  border: 0px !important;\r\n}\r\n  .mostrar{\r\n    display: list-item !important;\r\n    opacity: 1 !important;\r\n    position: absolute !important;\r\n    background-color: #3c29297a !important;\r\n  } */\n.div-error{\r\n    color: red !important;\r\n    font-weight: bold;\r\n    height: 10px;\n}\r\n", ""]);
 
 // exports
 
@@ -8525,7 +8647,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.modal-content{\r\n  width: 100% !important;\r\n  position: absolute !important;\r\n  border: 0px !important;\n}\n.mostrar{\r\n    display: list-item !important;\r\n    opacity: 1 !important;\r\n    position: absolute !important;\r\n    background-color: #3c29297a !important;\n}\n.div-error{\r\n    color: red !important;\r\n    font-weight: bold;\r\n    height: 10px;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* .modal-content{\r\n  width: 100% !important;\r\n  position: absolute !important;\r\n  border: 0px !important;\r\n}\r\n  .mostrar{\r\n    display: list-item !important;\r\n    opacity: 1 !important;\r\n    position: absolute !important;\r\n    background-color: #3c29297a !important;\r\n  } */\n.div-error{\r\n    color: red !important;\r\n    font-weight: bold;\r\n    height: 10px;\n}\r\n", ""]);
 
 // exports
 
@@ -41831,7 +41953,7 @@ var render = function() {
                 _c(
                   "div",
                   {
-                    staticClass: "modal-dialog modal-md",
+                    staticClass: "modal-dialog modal-lg",
                     attrs: { role: "document" }
                   },
                   [
@@ -41844,189 +41966,387 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "card-block" }, [
-                          _c(
-                            "form",
-                            {
-                              attrs: {
-                                action: "",
-                                method: "post",
-                                enctype: "multipart/form-data"
-                              }
-                            },
-                            [
-                              _c("div", { staticClass: "form-group row" }, [
-                                _c(
-                                  "label",
-                                  { staticClass: "col-sm-3 col-form-label" },
-                                  [_vm._v("Nombre (*)")]
-                                ),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "col-sm-9" }, [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.u_nombre,
-                                        expression: "u_nombre"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      autocomplete: "off",
-                                      placeholder: "Nombre de Unidad de Medida"
-                                    },
-                                    domProps: { value: _vm.u_nombre },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.u_nombre = $event.target.value
-                                      }
-                                    }
-                                  })
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "form-group row" }, [
-                                _c(
-                                  "label",
-                                  { staticClass: "col-sm-3 col-form-label" },
-                                  [_vm._v("Descripción (*)")]
-                                ),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "col-sm-9" }, [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.u_abre,
-                                        expression: "u_abre"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      placeholder: "Digite la abreviatura"
-                                    },
-                                    domProps: { value: _vm.u_abre },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.u_abre = $event.target.value
-                                      }
-                                    }
-                                  })
-                                ])
-                              ])
-                            ]
-                          ),
+                          _c("form", {
+                            staticClass: "form-material",
+                            attrs: { action: "#" }
+                          }),
                           _vm._v(" "),
-                          _c("div", { staticClass: "form-group row" }, [
-                            _c(
-                              "div",
-                              {
-                                directives: [
-                                  {
-                                    name: "show",
-                                    rawName: "v-show",
-                                    value: _vm.errorUnidad,
-                                    expression: "errorUnidad"
-                                  }
-                                ],
-                                staticClass: "div-error col-sm-12"
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "text-error col-sm-12 text-center"
-                                  },
-                                  _vm._l(_vm.errorMostrarMsj, function(error) {
-                                    return _c("div", {
-                                      key: error,
-                                      domProps: { textContent: _vm._s(error) }
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-sm-4 m-b-3" }, [
+                              _c(
+                                "div",
+                                { staticClass: "form-group form-primary" },
+                                [
+                                  _c(
+                                    "label",
+                                    { staticClass: "col-sm col-form-label" },
+                                    [_vm._v("Nombre (*)")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-sm" }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.u_nombre,
+                                          expression: "u_nombre"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        autocomplete: "off",
+                                        placeholder: "Nombre del Producto"
+                                      },
+                                      domProps: { value: _vm.u_nombre },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.u_nombre = $event.target.value
+                                        }
+                                      }
                                     })
-                                  }),
-                                  0
-                                )
-                              ]
-                            )
+                                  ])
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-sm-4 m-b-5" }, [
+                              _c(
+                                "div",
+                                { staticClass: "form-group form-primary" },
+                                [
+                                  _c(
+                                    "label",
+                                    { staticClass: "col-sm col-form-label" },
+                                    [_vm._v("Descripcion")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-sm" }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.u_nombre,
+                                          expression: "u_nombre"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        autocomplete: "off",
+                                        placeholder:
+                                          "Breve descripción del Producto"
+                                      },
+                                      domProps: { value: _vm.u_nombre },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.u_nombre = $event.target.value
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _vm._m(3)
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "row" }, [
-                            _c("div", { staticClass: "col-sm-12" }, [
-                              _c("div", { staticClass: "text-center m-t-20" }, [
-                                _vm.tipoAccion == 1
-                                  ? _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-primary waves-effect waves-light m-r-10",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.registrarUnidad()
-                                          }
+                            _c("div", { staticClass: "col-sm-4 m-b-5" }, [
+                              _c(
+                                "div",
+                                { staticClass: "form-group form-primary" },
+                                [
+                                  _c(
+                                    "label",
+                                    { staticClass: "col-sm col-form-label" },
+                                    [_vm._v("Precio Compra ")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-sm" }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.u_nombre,
+                                          expression: "u_nombre"
                                         }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        autocomplete: "off",
+                                        placeholder: "Nombre del Producto"
                                       },
-                                      [
-                                        _vm._v(
-                                          "Guardar\r\n                                                "
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _vm.tipoAccion == 2
-                                  ? _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-primary waves-effect waves-light m-r-10",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.actualizarUnidad()
+                                      domProps: { value: _vm.u_nombre },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
                                           }
+                                          _vm.u_nombre = $event.target.value
                                         }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "Actualizar\r\n                                                "
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "btn btn-warning waves-effect waves-light",
-                                    attrs: { type: "button" },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.cerrarModal()
                                       }
+                                    })
+                                  ])
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-sm-4 m-b-5" }, [
+                              _c(
+                                "div",
+                                { staticClass: "form-group form-primary" },
+                                [
+                                  _c(
+                                    "label",
+                                    { staticClass: "col-sm col-form-label" },
+                                    [_vm._v("Precio Venta (*)")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-sm" }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.u_nombre,
+                                          expression: "u_nombre"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        autocomplete: "off",
+                                        placeholder: "Nombre del Producto"
+                                      },
+                                      domProps: { value: _vm.u_nombre },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.u_nombre = $event.target.value
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-sm-4 m-b-5" }, [
+                              _c(
+                                "div",
+                                { staticClass: "form-group form-primary" },
+                                [
+                                  _c(
+                                    "label",
+                                    { staticClass: "col-sm col-form-label" },
+                                    [_vm._v("Codigo de Barra")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-sm" }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.u_nombre,
+                                          expression: "u_nombre"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        autocomplete: "off",
+                                        placeholder: "Nombre del Producto"
+                                      },
+                                      domProps: { value: _vm.u_nombre },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.u_nombre = $event.target.value
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ]
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(4),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-sm-4 m-b-5" }, [
+                              _c(
+                                "div",
+                                { staticClass: "form-group form-primary" },
+                                [
+                                  _c(
+                                    "label",
+                                    { staticClass: "col-sm col-form-label" },
+                                    [_vm._v("Stock Minimo (*)")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-sm" }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.u_nombre,
+                                          expression: "u_nombre"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        autocomplete: "off",
+                                        placeholder: "Nombre del Producto"
+                                      },
+                                      domProps: { value: _vm.u_nombre },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.u_nombre = $event.target.value
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-sm-4 m-b-5" }, [
+                              _c(
+                                "div",
+                                { staticClass: "form-group form-primary" },
+                                [
+                                  _c(
+                                    "label",
+                                    { staticClass: "col-sm col-form-label" },
+                                    [_vm._v("Unidad de Medida (*)")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-sm" }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.u_nombre,
+                                          expression: "u_nombre"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        autocomplete: "off",
+                                        placeholder: "Nombre del Producto"
+                                      },
+                                      domProps: { value: _vm.u_nombre },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.u_nombre = $event.target.value
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _vm._m(5)
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-sm-12" }, [
+                            _c("div", { staticClass: "text-center m-t-1" }, [
+                              _vm.tipoAccion == 1
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-primary waves-effect waves-light m-r-10",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.registrarProducto()
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "Guardar\r\n                                            "
+                                      )
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.tipoAccion == 2
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-primary waves-effect waves-light m-r-10",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.actualizarProducto()
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "Actualizar\r\n                                            "
+                                      )
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-warning waves-effect waves-light",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.cerrarModal()
                                     }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "Cerrar\r\n                                                "
-                                    )
-                                  ]
-                                )
-                              ])
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "Cerrar\r\n                                            "
+                                  )
+                                ]
+                              )
                             ])
                           ])
-                        ])
+                        ]),
+                        _vm._v(" "),
+                        _c("p")
                       ])
                     ])
                   ]
@@ -42034,10 +42354,10 @@ var render = function() {
               ]
             )
           ])
-        ]),
-        _vm._v(" "),
-        _c("div", { attrs: { id: "styleSelector" } })
-      ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "styleSelector" } })
     ])
   ])
 }
@@ -42107,6 +42427,139 @@ var staticRenderFns = [
         _c("th", [_vm._v("Categoria")]),
         _vm._v(" "),
         _c("th", [_vm._v("Acciones")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "col-sm-4 m-b-5 border-checkbox-section justify-content-center align-items-center"
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "border-checkbox-group border-checkbox-group-primary"
+          },
+          [
+            _c("input", {
+              staticClass: "border-checkbox",
+              attrs: { type: "checkbox", id: "checkbox1" }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "border-checkbox-label",
+                attrs: { for: "checkbox1" }
+              },
+              [_vm._v("No tiene lote")]
+            )
+          ]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-sm-4 m-b-5" }, [
+        _c("div", { staticClass: "form-group form-primary" }, [
+          _c("label", { staticClass: "col-sm col-form-label" }, [
+            _vm._v("Categoria (*)")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm" }, [
+            _c(
+              "select",
+              { staticClass: "form-control", attrs: { name: "select" } },
+              [
+                _c("option", { attrs: { value: "" } }, [_vm._v("Seleccionar")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "" } }, [_vm._v("adsas")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "" } }, [_vm._v("dsad")])
+              ]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-4 m-b-5" }, [
+        _c("div", { staticClass: "form-group form-primary" }, [
+          _c("label", { staticClass: "col-sm col-form-label" }, [
+            _vm._v("Marca (*)")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm" }, [
+            _c(
+              "select",
+              { staticClass: "form-control", attrs: { name: "select" } },
+              [
+                _c("option", { attrs: { value: "" } }, [_vm._v("Seleccionar")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "" } }, [_vm._v("adsas")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "" } }, [_vm._v("dsad")])
+              ]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-4 m-b-5" }, [
+        _c("div", { staticClass: "form-group form-primary" }, [
+          _c("label", { staticClass: "col-sm col-form-label" }, [
+            _vm._v("Tipo (*)")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm" }, [
+            _c(
+              "select",
+              { staticClass: "form-control", attrs: { name: "select" } },
+              [
+                _c("option", { attrs: { value: "" } }, [_vm._v("Seleccionar")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "" } }, [_vm._v("adsas")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "" } }, [_vm._v("dsad")])
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-sm-4 m-b-5" }, [
+      _c("div", { staticClass: "form-group form-primary" }, [
+        _c("label", { staticClass: "col-sm col-form-label" }, [
+          _vm._v("Seleccione Unidad (*)")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm" }, [
+          _c(
+            "select",
+            { staticClass: "form-control", attrs: { name: "select" } },
+            [
+              _c("option", { attrs: { value: "" } }, [_vm._v("Seleccionar")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "" } }, [_vm._v("adsas")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "" } }, [_vm._v("dsad")])
+            ]
+          )
+        ])
       ])
     ])
   }
@@ -56086,8 +56539,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\rincosoftventa\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\rincosoftventa\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\mysistem\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\mysistem\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
