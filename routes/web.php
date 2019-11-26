@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('contenido/contenido');
 });
 Route::get('/categoria','CategoriaController@index');
+Route::get('/categoria/selectcategoria','CategoriaController@selectcategoria');
 Route::post('/categoria/registrar','CategoriaController@store');
 Route::put('/categoria/actualizar','CategoriaController@update');
 Route::put('/categoria/desactivar','CategoriaController@desactivar');
@@ -37,3 +38,9 @@ Route::post('/unidad/registrar','UnidadController@store');
 Route::put('/unidad/actualizar','UnidadController@update');
 Route::put('/unidad/desactivar','UnidadController@desactivar');
 Route::put('/unidad/activar','UnidadController@activar');
+
+Route::get('/producto','ProductoController@index');
+Route::post('/producto/registrar','ProdcutoController@store');
+Route::put('/producto/actualizar','ProdcutoController@update');
+Route::put('/producto/desactivar','ProdcutoController@desactivar');
+Route::put('/producto/activar','ProdcutoController@activar');

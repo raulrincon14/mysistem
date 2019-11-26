@@ -24,4 +24,7 @@
   <template v-if="menu==7">
     <tipo></tipo>
   </template>
+  <template v-if="menu==8">
+    <producto></producto>
+  </template>
 @endsection

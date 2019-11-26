@@ -37,7 +37,12 @@ class CategoriaController extends Controller
         'categoria' => $categoria
       ];
     }
-
+    public function selectCategoria(Request $request){
+      // if (!$request->ajax()) return redirect('/');
+      $categoria = Categoria::where('ca_estado','=','1')
+      ->select('idcategoria','ca_nombre')->orderBy('idcategoria')->get();
+      return ['categoria' => $categoria];
+    }
 
 
     /**
