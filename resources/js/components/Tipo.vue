@@ -193,7 +193,7 @@ export default {
         return {
             tipo_id:0,
             ti_nombre: '',
-            ti_abre: '',
+            ti_desc: '',
             arrayTipo: [],
             modal:0,
             tituloModal: '',

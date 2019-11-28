@@ -35,6 +35,12 @@ class TipoController extends Controller
       ];
     }
 
+    public function selectTipo(Request $request){
+      // if (!$request->ajax()) return redirect('/');
+      $tipo = Tipo::where('ti_estado','=','1')
+      ->select('idtipo','ti_nombre')->orderBy('idtipo')->get();
+      return ['tipo' => $tipo];
+    }
     /**
      * Store a newly created resource in storage.
      *

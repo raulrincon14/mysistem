@@ -37,6 +37,12 @@ class UnidadController extends Controller
      ];
     }
 
+    public function selectUnidad(Request $request){
+      // if (!$request->ajax()) return redirect('/');
+      $unidad = Unidad::where('u_estado','=','1')
+      ->select('idunidad','u_nombre')->orderBy('idunidad')->get();
+      return ['unidad' => $unidad];
+    }
     /**
      * Store a newly created resource in storage.
      *

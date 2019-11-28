@@ -12,7 +12,7 @@ class ProductoController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-      if (!$request->ajax()) return redirect('/');
+      // if (!$request->ajax()) return redirect('/');
      // $buscar = '';
      $buscar = $request -> buscar;
      if ($buscar=='') {
@@ -23,7 +23,7 @@ class ProductoController extends Controller{
        ->select('producto.idproducto','categoria.idcategoria','marca.idmarca','marca.ma_nombre','tipo.idtipo','tipo.ti_nombre','unidad.idunidad','unidad.u_nombre',
        'producto.pr_nombre','categoria.ca_nombre','producto.pr_desc','producto.pr_precioc','producto.pr_preciov','producto.pr_cb','producto.pr_medida',
        'producto.pr_estado','producto.pr_stkmin','pr_igv')
-        ->orderBy('idproducto')->paginate(3);
+        ->orderBy('idproducto')->paginate(10);
      }else {
        $producto = Producto::join('categoria','producto.categoria_idcategoria','=','idcategoria')
        ->join('marca','producto.marca_idmarca','=','idmarca')
@@ -33,7 +33,7 @@ class ProductoController extends Controller{
        'producto.pr_nombre','categoria.ca_nombre','producto.pr_desc','producto.pr_precioc','producto.pr_preciov','producto.pr_cb','producto.pr_medida',
        'producto.pr_estado','producto.pr_stkmin','pr_igv')
         ->where('pr_nombre','like','%'. $buscar .'%')
-        ->orderBy('idproducto')->paginate(3);
+        ->orderBy('idproducto')->paginate(10);
      }
 
      return [
@@ -59,17 +59,19 @@ class ProductoController extends Controller{
     {
       if (!$request->ajax()) return redirect('/');
       $producto = new Producto();
-      $producto->categoria_idcategoria = $request->idcategoria;
       $producto->pr_nombre = $request->pr_nombre;
       $producto->pr_desc = $request->pr_desc;
       $producto->pr_precioc = $request->pr_precioc;
       $producto->pr_preciov = $request->pr_preciov;
-      $producto->pr_estado = $request->pr_estado;
+      $producto->pr_estado = '1';
       $producto->pr_cb = $request->pr_cb;
       $producto->pr_stkmin = $request->pr_stkmin;
       $producto->pr_medida = $request->pr_medida;
       $producto->pr_igv = $request->pr_igv;
-      $producto->pr_estado = '1';
+      $producto->categoria_idcategoria = $request->idcategoria;
+      $producto->marca_idmarca = $request->idmarca;
+      $producto->tipo_idtipo = $request->idtipo;
+      $producto->unidad_idunidad = $request->idunidad;
       $producto->save();
     }
 
@@ -81,22 +83,31 @@ class ProductoController extends Controller{
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-      if (!$request->ajax()) return redirect('/');
-      $producto = Producto::findOrFail($request->idproducto);
-      $producto->categoria_idcategoria = $request->idcategoria;
+      // if (!$request->ajax()) return redirect('/');
+
+      // $producto = Producto::findOrFail('$request->idproducto');
+      // $producto = Producto::findOrFail('26');
+      // $producto->pr_nombre = $request->pr_nombre;
+      // $producto->save();
+      // if (!$request->ajax()) return redirect('/');
+      $producto =  Producto::findOrFail($request->idproducto);
+
       $producto->pr_nombre = $request->pr_nombre;
       $producto->pr_desc = $request->pr_desc;
       $producto->pr_precioc = $request->pr_precioc;
       $producto->pr_preciov = $request->pr_preciov;
-      $producto->pr_estado = $request->pr_estado;
+      $producto->pr_estado = '1';
       $producto->pr_cb = $request->pr_cb;
       $producto->pr_stkmin = $request->pr_stkmin;
       $producto->pr_medida = $request->pr_medida;
       $producto->pr_igv = $request->pr_igv;
-      $producto->pr_estado = '1';
-      $categoria->save();
+      $producto->categoria_idcategoria = $request->idcategoria;
+      $producto->marca_idmarca = $request->idmarca;
+      $producto->tipo_idtipo = $request->idtipo;
+      $producto->unidad_idunidad = $request->idunidad;
+      $producto->save();
     }
 
     public function desactivar(Request $request)
@@ -111,7 +122,7 @@ class ProductoController extends Controller{
     {
       if (!$request->ajax()) return redirect('/');
       $producto = Producto::findOrFail($request->idproducto);
-      $producto->pr_estado = '0';
+      $producto->pr_estado = '1';
       $producto->save();
     }
 }

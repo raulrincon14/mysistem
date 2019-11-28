@@ -68,7 +68,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="producto in arrayProducto" :key="producto.idunidad">
+                                            <tr v-for="producto in arrayProducto" :key="producto.idproducto">
                                                 <th v-text="producto.idproducto"></th>
                                                 <td v-text="producto.pr_nombre"></td>
                                                 <td v-text="producto.pr_desc"></td>
@@ -87,16 +87,16 @@
                                                 <td v-text="producto.pr_medida"></td>
                                                 <td v-text="producto.ca_nombre"></td>
                                                 <td>
-                                                  <button type="button" @click="abrirModal('unidad','actualizar',unidad)" class="btn waves-effect waves-dark btn-warning btn-outline-warning btn-iconr">
+                                                  <button type="button" @click="abrirModal('producto','actualizar',producto)" class="btn waves-effect waves-dark btn-warning btn-outline-warning btn-iconr">
                                                         <i class="ti-marker-alt"></i>
                                                     </button>&nbsp;
                                                     <template v-if="producto.pr_estado">
-                                                      <button type="button" class="btn waves-effect waves-dark btn-danger btn-outline-danger btn-iconr" @click="desactivarUnidad(producto.idproducto)">
+                                                      <button type="button" class="btn waves-effect waves-dark btn-danger btn-outline-danger btn-iconr" @click="desactivarProducto(producto.idproducto)">
                                                           <i class="fa fa-trash"></i>
                                                       </button>
                                                     </template>
                                                     <template v-else="producto.pr_estado">
-                                                      <button type="button" class="btn waves-effect waves-dark btn-info btn-outline-info btn-iconr" @click="activarUnidad(producto.idproducto)">
+                                                      <button type="button" class="btn waves-effect waves-dark btn-info btn-outline-info btn-iconr" @click="activarProducto(producto.idproducto)">
                                                           <i class="fa fa-check"></i>
                                                       </button>
                                                     </template>
@@ -147,7 +147,7 @@
                                                 <div class="form-group form-primary">
                                                   <label class="col-sm col-form-label">Nombre (*)</label>
                                                   <div class="col-sm">
-                                                      <input type="text" v-model="u_nombre" autocomplete="off" placeholder="Nombre del Producto" class="form-control" />
+                                                      <input type="text" v-model="pr_nombre" autocomplete="off" placeholder="Nombre del Producto" class="form-control" />
                                                   </div>
                                                 </div>
                                             </div>
@@ -155,13 +155,13 @@
                                                 <div class="form-group form-primary">
                                                   <label class="col-sm col-form-label">Descripcion</label>
                                                   <div class="col-sm">
-                                                      <input type="text" v-model="u_nombre" autocomplete="off" placeholder="Breve descripción del Producto" class="form-control" />
+                                                      <input type="text" v-model="pr_desc" autocomplete="off" placeholder="Breve descripción" class="form-control" />
                                                   </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4 m-b-5 border-checkbox-section justify-content-center align-items-center">
                                               <div class="border-checkbox-group border-checkbox-group-primary">
-                                                  <input class="border-checkbox" type="checkbox" id="checkbox1" />
+                                                  <input class="border-checkbox" type="checkbox" id="checkbox1"  v-model="pr_igv"/>
                                                   <label class="border-checkbox-label" for="checkbox1">No tiene lote</label>
                                               </div>
                                             </div>
@@ -172,7 +172,7 @@
                                               <div class="form-group form-primary">
                                                 <label class="col-sm col-form-label">Precio Compra </label>
                                                 <div class="col-sm">
-                                                    <input type="text" v-model="u_nombre" autocomplete="off" placeholder="Nombre del Producto" class="form-control" />
+                                                    <input type="number" v-model="pr_precioc" autocomplete="off" placeholder="Numero entero o decimal" class="form-control" />
                                                 </div>
                                               </div>
                                             </div>
@@ -180,7 +180,7 @@
                                               <div class="form-group form-primary">
                                                 <label class="col-sm col-form-label">Precio Venta (*)</label>
                                                 <div class="col-sm">
-                                                    <input type="text" v-model="u_nombre" autocomplete="off" placeholder="Nombre del Producto" class="form-control" />
+                                                    <input type="number" v-model="pr_preciov" autocomplete="off" placeholder="Numero entero o decimal" class="form-control" />
                                                 </div>
                                               </div>
                                             </div>
@@ -188,7 +188,7 @@
                                               <div class="form-group form-primary">
                                                 <label class="col-sm col-form-label">Codigo de Barra</label>
                                                 <div class="col-sm">
-                                                    <input type="text" v-model="u_nombre" autocomplete="off" placeholder="Nombre del Producto" class="form-control" />
+                                                    <input type="text" v-model="pr_cb" autocomplete="off" placeholder="Codigo de Barra" class="form-control" />
                                                 </div>
                                               </div>
                                             </div>
@@ -198,10 +198,9 @@
                                             <div class="form-group form-primary">
                                               <label class="col-sm col-form-label">Categoria (*)</label>
                                               <div class="col-sm">
-                                                <select name="select" class="form-control">
-                                                    <option value="">Seleccionar</option>
-                                                    <option value="">adsas</option>
-                                                    <option value="">dsad</option>
+                                                <select name="select" class="form-control" v-model="idcategoria">
+                                                    <option value="0" disabled>Seleccionar</option>
+                                                    <option v-for="categoria in arrayCategoria" :key="categoria.idcategoria" :value="categoria.idcategoria" v-text="categoria.ca_nombre"></option>
                                                 </select>
                                               </div>
                                             </div>
@@ -210,10 +209,9 @@
                                             <div class="form-group form-primary">
                                               <label class="col-sm col-form-label">Marca (*)</label>
                                               <div class="col-sm">
-                                                <select name="select" class="form-control">
-                                                    <option value="">Seleccionar</option>
-                                                    <option value="">adsas</option>
-                                                    <option value="">dsad</option>
+                                                <select name="select" class="form-control" v-model="idmarca">
+                                                    <option value="0" disabled>Seleccionar</option>
+                                                    <option v-for="marca in arrayMarca" :key="marca.idmarca" :value="marca.idmarca" v-text="marca.ma_nombre"></option>
                                                 </select>
                                               </div>
                                             </div>
@@ -222,10 +220,9 @@
                                             <div class="form-group form-primary">
                                               <label class="col-sm col-form-label">Tipo (*)</label>
                                               <div class="col-sm">
-                                                <select name="select" class="form-control">
-                                                    <option value="">Seleccionar</option>
-                                                    <option value="">adsas</option>
-                                                    <option value="">dsad</option>
+                                                <select name="select" class="form-control" v-model="idtipo">
+                                                    <option value="0" disabled>Seleccionar</option>
+                                                    <option v-for="tipo in arrayTipo" :key="tipo.idtipo" :value="tipo.idtipo" v-text="tipo.ti_nombre"></option>
                                                 </select>
                                               </div>
                                             </div>
@@ -235,9 +232,9 @@
                                         <div class="row">
                                           <div class="col-sm-4 m-b-5">
                                             <div class="form-group form-primary">
-                                              <label class="col-sm col-form-label">Stock Minimo (*)</label>
+                                              <label class="col-sm col-form-label">Stock Minimo</label>
                                               <div class="col-sm">
-                                                  <input type="text" v-model="u_nombre" autocomplete="off" placeholder="Nombre del Producto" class="form-control" />
+                                                  <input type="number" v-model="pr_stkmin" autocomplete="off" placeholder="Nombre del Producto" class="form-control" />
                                               </div>
                                             </div>
                                           </div>
@@ -245,7 +242,7 @@
                                             <div class="form-group form-primary">
                                               <label class="col-sm col-form-label">Unidad de Medida (*)</label>
                                               <div class="col-sm">
-                                                  <input type="text" v-model="u_nombre" autocomplete="off" placeholder="Nombre del Producto" class="form-control" />
+                                                  <input type="number" v-model="pr_medida" autocomplete="off" placeholder="Ejemplo: 1 , solo número" class="form-control" />
                                               </div>
                                             </div>
                                           </div>
@@ -253,16 +250,23 @@
                                             <div class="form-group form-primary">
                                               <label class="col-sm col-form-label">Seleccione Unidad (*)</label>
                                               <div class="col-sm">
-                                                <select name="select" class="form-control">
-                                                    <option value="">Seleccionar</option>
-                                                    <option value="">adsas</option>
-                                                    <option value="">dsad</option>
+                                                <select name="select" class="form-control" v-model="idunidad">
+                                                    <option value="0" disabled>Seleccionar</option>
+                                                    <option v-for="unidad in arrayUnidad" :key="unidad.idunidad" :value="unidad.idunidad" v-text="unidad.u_nombre"></option>
                                                 </select>
                                               </div>
                                             </div>
                                           </div>
                                         </div>
                                     </form>
+                                    <div class="form-group row">
+                                      <div v-show="errorProducto" class="div-error col-sm-12">
+                                        <div class="text-error col-sm-12 text-center">
+                                          <div v-for="error in errorMostrarMsj" :key="error" v-text="error">
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
@@ -304,14 +308,18 @@ export default {
     data() {
         return {
             producto_id:0,
+            idcategoria:0,
+            idmarca:0,
+            idtipo:0,
+            idunidad:0,
             ca_nombre: '',
             ca_desc: '',
             pr_nombre: '',
             pr_desc: '',
-            pr_precioc: 0,
-            pr_preciov: 0,
+            pr_precioc: '',
+            pr_preciov: '',
             pr_estado: '',
-            pr_stkmin: 0,
+            pr_stkmin: '',
             pr_medida: '',
             pr_igv: '',
             pr_cb: '',
@@ -331,7 +339,11 @@ export default {
             },
             offset: 3,
             criterio: 'nombre',
-            buscar: ''
+            buscar: '',
+            arrayCategoria : [],
+            arrayTipo : [],
+            arrayMarca : [],
+            arrayUnidad : []
         }
     },
     computed:{
@@ -379,6 +391,66 @@ export default {
                 });
 
         },
+        selectCategoria(){
+          let me = this;
+          var url='/categoria/selectcategoria';
+          axios.get(url).then(function(response) {
+           // console.log(response);
+                  var respuesta = response.data;
+                  me.arrayCategoria = respuesta.categoria;
+              })
+              .catch(function(error) {
+                  console.log(error);
+              })
+              .finally(function() {
+                  // always executed
+              });
+        },
+        selectMarca(){
+          let me = this;
+          var url='/marca/selectmarca';
+          axios.get(url).then(function(response) {
+           // console.log(response);
+                  var respuesta = response.data;
+                  me.arrayMarca = respuesta.marca;
+              })
+              .catch(function(error) {
+                  console.log(error);
+              })
+              .finally(function() {
+                  // always executed
+              });
+        },
+        selectTipo(){
+          let me = this;
+          var url='/tipo/selecttipo';
+          axios.get(url).then(function(response) {
+           // console.log(response);
+                  var respuesta = response.data;
+                  me.arrayTipo = respuesta.tipo;
+              })
+              .catch(function(error) {
+                  console.log(error);
+              })
+              .finally(function() {
+                  // always executed
+              });
+        },
+        selectUnidad(){
+          let me = this;
+          var url='/unidad/selectunidad';
+          axios.get(url).then(function(response) {
+           // console.log(response);
+                  var respuesta = response.data;
+                  me.arrayUnidad = respuesta.unidad;
+              })
+              .catch(function(error) {
+                  console.log(error);
+              })
+              .finally(function() {
+                  // always executed
+              });
+        },
         cambiarPagina(page, buscar){
           let me=this;
 
@@ -392,37 +464,59 @@ export default {
 
           let me=this;
 
-              axios.post('/unidad/registrar',{
-                'u_nombre' : this.u_nombre,
-                'u_abre': this.u_abre
+              axios.post('/producto/registrar',{
+                'pr_nombre' : this.pr_nombre,
+                'pr_desc': this.pr_desc,
+                'pr_precioc': this.pr_precioc,
+                'pr_preciov' : this.pr_preciov,
+                'pr_stkmin' : this.pr_stkmin,
+                'pr_igv' : this.pr_igv,
+                'pr_cb' : this.pr_cb,
+                'pr_medida':this.pr_medida,
+                'idmarca' : this.idmarca,
+                'idtipo' : this.idtipo,
+                'idunidad' : this.idunidad,
+                'idcategoria' : this.idcategoria
+
                 }).then(function (response) {
+                  // console.log(response);
                   me.cerrarModal();
-                  me.listarUnidad(1,'');
+                  me.listarProducto(1,'');
                 })
                 .catch(function (response) {
                   console.log(error);
                 });
         },
-        actualizarUnidad(){
-          if (this.validarUnidad()) {
+        actualizarProducto(){
+          if (this.validarProducto()) {
             return;
           }
 
           let me=this;
 
-            axios.put('/unidad/actualizar',{
-              'u_nombre' : this.u_nombre,
-              'u_abre': this.u_abre,
-              'idunidad': this.unidad_id
-              }).then(function (response) {
+            axios.put('/producto/actualizar',{
+              'pr_nombre' : this.pr_nombre,
+              'pr_desc': this.pr_desc,
+              'pr_precioc': this.pr_precioc,
+              'pr_preciov' : this.pr_preciov,
+              'pr_stkmin' : this.pr_stkmin,
+              'pr_igv' : this.pr_igv,
+              'pr_cb' : this.pr_cb,
+              'pr_medida':this.pr_medida,
+              'idmarca' : this.idmarca,
+              'idtipo' : this.idtipo,
+              'idunidad' : this.idunidad,
+              'idcategoria' : this.idcategoria,
+              'idproducto' : this.producto_id
+                }).then(function (response) {
                 me.cerrarModal();
-                me.listarUnidad(1,'');
+                me.listarProducto(1,'');
               })
               .catch(function (response) {
                 console.log(error);
               });
         },
-        desactivarUnidad(id){
+        desactivarProducto(id){
           const swalWithBootstrapButtons = Swal.mixin({
               customClass: {
                 confirmButton: 'btn btn-success',
@@ -432,7 +526,7 @@ export default {
             })
 
             swalWithBootstrapButtons.fire({
-              title: 'Está seguro de desactivar esta categoria?',
+              title: 'Está seguro de desactivar este producto?',
               icon: 'warning',
               showCancelButton: true,
               confirmButtonText: 'Aceptar!',
@@ -442,10 +536,10 @@ export default {
               if (result.value) {
                 let me=this;
 
-                  axios.put('/unidad/desactivar',{
-                    'idunidad': id
+                  axios.put('/producto/desactivar',{
+                    'idproducto': id
                     }).then(function (response) {
-                      me.listarUnidad(1,'');
+                      me.listarProducto(1,'');
                       swalWithBootstrapButtons.fire(
                         'Desactivado',
                         'Fue desactivado con éxito.',
@@ -463,7 +557,7 @@ export default {
               }
             })
         },
-        activarUnidad(id){
+        activarProducto(id){
           const swalWithBootstrapButtons = Swal.mixin({
               customClass: {
                 confirmButton: 'btn btn-success',
@@ -473,7 +567,7 @@ export default {
             })
 
             swalWithBootstrapButtons.fire({
-              title: 'Está seguro de activar esta unidad de medida?',
+              title: 'Está seguro de activar este producto?',
               icon: 'warning',
               showCancelButton: true,
               confirmButtonText: 'Aceptar!',
@@ -483,10 +577,10 @@ export default {
               if (result.value) {
                 let me=this;
 
-                  axios.put('/unidad/activar',{
-                    'idunidad': id
+                  axios.put('/producto/activar',{
+                    'idproducto': id
                     }).then(function (response) {
-                      me.listarUnidad(1,'');
+                      me.listarProducto(1,'');
                       swalWithBootstrapButtons.fire(
                         'Activado',
                         'Fue activado con éxito.',
@@ -505,12 +599,17 @@ export default {
             })
         },
         validarProducto(){
-          this.errorUnidad=0;
+          this.errorProducto=0;
           this.errorMostrarMsj=[];
-          if (!this.u_nombre) this.errorMostrarMsj.push("El nombre de la unidad no puede estar vacio.");
-          if (!this.u_abre) this.errorMostrarMsj.push("La abreviatura de la unidad no puede estar vacio.");
-          if(this.errorMostrarMsj.length) this.errorUnidad = 1;
-            return this.errorUnidad;
+          if (!this.pr_nombre) this.errorMostrarMsj.push("El nombre del producto no puede estar vacio.");
+          if (!this.pr_venta) this.errorMostrarMsj.push("LLenar precio venta.");
+          if (!this.idcategoria) this.errorMostrarMsj.push("Seleccionar Categoria.");
+          if (!this.idmarca) this.errorMostrarMsj.push("Seleccionar Marca.");
+          if (!this.idtipo) this.errorMostrarMsj.push("Seleccionar Tipo.");
+          if (!this.idunidad) this.errorMostrarMsj.push("Seleccionar Unidad de Medida.");
+          if (!this.pr_medida) this.errorMostrarMsj.push("Seleccionar Unidad de Medida.");
+          if(this.errorMostrarMsj.length) this.errorProducto = 1;
+            return this.errorProducto;
         },
         cerrarModal(){
           this.modal=0;
@@ -519,14 +618,18 @@ export default {
           this.ca_desc= '';
           this.pr_nombre= '';
           this.pr_desc= '';
-          this.pr_precioc= 0;
-          this.pr_preciov= 0;
+          this.pr_precioc= '';
+          this.pr_preciov= '';
           this.pr_estado= '';
-          this.pr_stkmin= 0;
+          this.pr_stkmin= '';
           this.pr_medida= '';
           this.pr_igv= '';
           this.pr_cb= '';
           this.errorProducto = 0;
+          this.idcategoria=0,
+          this.idmarca=0,
+          this.idtipo=0,
+          this.idunidad=0
         },
         abrirModal(modelo, accion, data = []){
           switch (modelo) {
@@ -534,27 +637,27 @@ export default {
                 switch (accion) {
                   case 'registrar':{
                     this.modal = 1;
+                    this.tipoAccion=1;
                     this.tituloModal = 'Nuevo Producto'
                     this.ca_nombre= '';
                     this.ca_desc= '';
                     this.pr_nombre= '';
                     this.pr_desc= '';
-                    this.pr_precioc= 0;
-                    this.pr_preciov= 0;
+                    this.pr_precioc= '';
+                    this.pr_preciov= '';
                     this.pr_estado= '';
-                    this.pr_stkmin= 0;
+                    this.pr_stkmin= '';
                     this.pr_medida= '';
                     this.pr_igv= '';
                     this.pr_cb= '';
                     break;
                   }
                   case 'actualizar':{
-                     console.log(data);
-                    this.modal = 1;
+                     // console.log(data);
+                    this.modal = 1;  this.tipoAccion=2;
                     this.tituloModal ='Actualizar Producto';
-                    this.producto_id = data['idcategoria'];
-                    this.tipoAccion=2;
-                    this.ca_nombre= data['ca_nombre'];
+                    this.producto_id = data['idproducto'];
+                    this.pr_nombre= data['pr_nombre'];
                     this.pr_nombre= data['pr_nombre'];
                     this.pr_desc= data['pr_desc'];
                     this.pr_precioc= data['pr_precioc'];
@@ -563,12 +666,19 @@ export default {
                     this.pr_medida= data['pr_medida'];
                     this.pr_igv= data['pr_igv'];
                     this.pr_cb= data['pr_cb'];
+                    this.idcategoria= data['idcategoria'];
+                    this.idmarca= data['idmarca'];
+                    this.idtipo= data['idtipo'];
+                    this.idunidad= data['idunidad'];
                     break;
                   }
                 }
             }
           }
-
+          this.selectCategoria();
+          this.selectMarca();
+          this.selectTipo();
+          this.selectUnidad();
         }
     },
     mounted() {
