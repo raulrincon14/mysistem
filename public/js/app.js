@@ -3262,7 +3262,7 @@ __webpack_require__.r(__webpack_exports__);
       this.errorProducto = 0;
       this.errorMostrarMsj = [];
       if (!this.pr_nombre) this.errorMostrarMsj.push("El nombre del producto no puede estar vacio.");
-      if (!this.pr_venta) this.errorMostrarMsj.push("LLenar precio venta.");
+      if (!this.pr_preciov) this.errorMostrarMsj.push("LLenar precio venta.");
       if (!this.idcategoria) this.errorMostrarMsj.push("Seleccionar Categoria.");
       if (!this.idmarca) this.errorMostrarMsj.push("Seleccionar Marca.");
       if (!this.idtipo) this.errorMostrarMsj.push("Seleccionar Tipo.");
@@ -56907,8 +56907,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\rincosoftventa\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\rincosoftventa\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\mysistem\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\mysistem\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

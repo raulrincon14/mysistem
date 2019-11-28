@@ -602,7 +602,7 @@ export default {
           this.errorProducto=0;
           this.errorMostrarMsj=[];
           if (!this.pr_nombre) this.errorMostrarMsj.push("El nombre del producto no puede estar vacio.");
-          if (!this.pr_venta) this.errorMostrarMsj.push("LLenar precio venta.");
+          if (!this.pr_preciov) this.errorMostrarMsj.push("LLenar precio venta.");
           if (!this.idcategoria) this.errorMostrarMsj.push("Seleccionar Categoria.");
           if (!this.idmarca) this.errorMostrarMsj.push("Seleccionar Marca.");
           if (!this.idtipo) this.errorMostrarMsj.push("Seleccionar Tipo.");
