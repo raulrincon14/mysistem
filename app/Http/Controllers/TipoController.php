@@ -17,7 +17,7 @@ class TipoController extends Controller
       $buscar = $request -> buscar;
       // $marca = Marca::paginate(10);
       if ($buscar=='') {
-        $tipo = Tipo::orderBy('idtipo')->paginate(3);
+        $tipo = Tipo::orderBy('idtipo')->paginate(10);
       }else {
         $tipo = Tipo::where('ti_nombre','like','%'. $buscar .'%')->orderBy('idtipo')->paginate(3);
       }

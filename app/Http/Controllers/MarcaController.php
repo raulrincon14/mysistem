@@ -18,7 +18,7 @@ class MarcaController extends Controller
      $buscar = $request -> buscar;
      // $marca = Marca::paginate(10);
      if ($buscar=='') {
-       $marca = Marca::orderBy('idmarca')->paginate(3);
+       $marca = Marca::orderBy('idmarca')->paginate(10);
      }else {
        $marca = Marca::where('ma_nombre','like','%'. $buscar .'%')->orderBy('idmarca')->paginate(10);
      }

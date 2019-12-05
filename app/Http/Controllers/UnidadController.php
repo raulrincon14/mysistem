@@ -19,7 +19,7 @@ class UnidadController extends Controller
      $buscar = $request -> buscar;
      // $categoria = Categoria::paginate(10);
      if ($buscar=='') {
-       $unidad = Unidad::orderBy('idunidad')->paginate(3);
+       $unidad = Unidad::orderBy('idunidad')->paginate(10);
      }else {
        $unidad = Unidad::where('u_nombre','like','%'. $buscar .'%')->orderBy('idunidad')->paginate(3);
      }
