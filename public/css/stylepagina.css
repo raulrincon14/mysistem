@@ -118,6 +118,16 @@ code {
 }
 
 /*====== Ready to use Css End ======*/
+.cardr{
+  background-color: rgba(28, 5, 5, 0.6);
+  border-radius: 15px;
+  padding: 20px 20px;
+  border: red 1px solid;
+  border-color: #ffffff;
+  margin-left:auto;
+     margin-right: auto;
+ /* min-height: 100vh; */
+}
 .card {
   border-radius: 5px;
   -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
@@ -1592,7 +1602,10 @@ a.bg-danger:hover {
 
 .table.table-xs td,
 .table.table-xs th {
-  padding: 0.4rem 2rem;
+      padding-top: 0.3rem;
+      padding-right: 0.1rem;
+      padding-bottom: 0.3rem;
+      padding-left: 0.3rem;
 }
 
 .table-columned > tbody > tr > td:first-child,
@@ -8839,8 +8852,21 @@ table tbody .border-bottom-info td {
 }
 
 body[themebg-pattern="theme1"] {
-  background-color: #448aff;
+  /* background-color: #448aff; */
+  background-image: url("../images/fondos/4.jpg");
+background-position: center;
+background-attachment: fixed;
+background-repeat: no-repeat;
 }
+.fuenteb{
+  color: #ffffff;
+}
+.hrr{
+  height: 2px;
+       background-color: #fff;
+       border: none;
+}
+
 body[themebg-pattern="theme2"] {
   background-color: #5D4037;
 }
@@ -12479,6 +12505,7 @@ body.menu-bottom #collapse-menu {
 }
 .form-material .form-control {
   display: inline-block;
+  color: #fff;
   height: 43px;
   width: 100%;
   border: none;
@@ -13956,7 +13983,7 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
 
 .table td,
 .table th {
-  padding: 1.25rem 0.75rem;
+  padding: 0.1rem 0.3rem;
 }
 
 .table thead th {
@@ -14791,8 +14818,9 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child:before {
 }
 
 .alert-danger {
-  background-color: #fff;
-  border-color: #ff5252;
+  background-color: rgba(158, 24, 16, 0.76);
+      border-width: 0 1px 4px 1px;
+      border-color: rgba(107, 11, 6, 0.92);
   color: #ff5252;
 }
 
@@ -21524,7 +21552,7 @@ background-repeat: no-repeat;
 }
 .pcoded[layout-type="dark"] .modal-content {
   /* background-color: rgba(0, 4, 6, 0.82); */
-  background-color: transparent; 
+  background-color: transparent;
 }
 .pcoded[layout-type="dark"] .modal-content .modal-header {
   border-bottom: 1px solid #37474f;

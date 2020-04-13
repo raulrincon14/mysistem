@@ -43,7 +43,7 @@
                           <div class="form-group row">
                               <label class="col-sm-2 col-form-label"></label>
                               <div class="col-sm-4">
-                                  <input type="text" autocomplete="off" v-model="buscar" @keyup.enter="listarCategoria(1,buscar)" placeholder="Texto a buscar" class="form-control" />
+                                  <input type="text" autocomplete="off" v-model="buscar" v-on:keyup="listarCategoria(1,buscar)" @keyup.enter="listarCategoria(1,buscar)" placeholder="Texto a buscar" class="form-control" />
                               </div>
                               <div class="col-sm-4">
                                   <button type="submit" class="btn btn-outline-primary btn-sm"  @click="listarCategoria(1,buscar)"><i class="fa fa-search"></i> Buscar </button>
@@ -58,7 +58,7 @@
                                                 <th>Nombre</th>
                                                 <th>descripcion</th>
                                                 <th>Estado</th>
-                                                <th>Estado</th>
+                                                <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -445,9 +445,9 @@ export default {
     position: absolute !important;
     background-color: #3c29297a !important;
   } */
-  .div-error{
+  /* .div-error{
     color: red !important;
     font-weight: bold;
     height: 10px;
-  }
+  } */
 </style>

@@ -22,5 +22,10 @@
         "sass-loader": "7.*",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
+    },
+    "dependencies": {
+        "vue-multiselect": "^2.1.6",
+        "vue-promise-btn": "^2.0.2",
+        "vue-select": "^3.5.1"
     }
 }

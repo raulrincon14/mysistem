@@ -46,6 +46,9 @@
     <link rel="stylesheet" type="text/css" href="css/stylepagina.css" />
     <link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.css" />
     <link rel="stylesheet" type="text/css" href="css/material-design-iconic-font.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/vue-multiselect.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/vue-select.css" />
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   </head>
 
@@ -269,11 +272,13 @@
 <![endif]-->
     <!-- Warning Section Ends -->
     <!-- Required Jquery -->
+
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="js/popper.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
     <!-- waves js -->
     <script src="js/waves.min.js"></script>
     <!-- jquery slimscroll js -->
@@ -320,6 +325,7 @@
     <script src="js/jQuery.style.switcher.js"></script>
     <script src="js/jQuery.style.switcher.js"></script>
     <script src="js/sweetalert2.all.js"></script>
+    <script src="js/miclase.js"></script>
 </body>
 
 </html>

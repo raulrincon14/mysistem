@@ -34,16 +34,23 @@ class ProveedorController extends Controller
       ];
     }
 
+    public function selectProveedor(Request $request){
+        // if (!$request->ajax()) return redirect('/');
+         $filtro = $request->filtro;
+         $proveedores = Proveedor::where('pro_nombre','like','%'. $filtro .'%')
+         ->Where('pro_estado', '1')
+         ->orderby('idproveedor','asc')->get();
+         return ['proveedores' => $proveedores];
+    }
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
       if (!$request->ajax()) return redirect('/');
-        $provedor = new Proveedor();
+        $proveedor = new Proveedor();
         $proveedor->pro_doc = $request->pro_doc;
         $proveedor->pro_docnum = $request->pro_docnum;
         $proveedor->pro_nombre = $request->pro_nombre;
@@ -56,30 +63,8 @@ class ProveedorController extends Controller
         $proveedor->pro_telefono = $request->pro_telefono;
         $proveedor->pro_email = $request->pro_email;
         $proveedor->pro_web = $request->pro_web;
-        $proveedor->ma_estado = '1';
+        $proveedor->pro_estado = '1';
         $proveedor->save();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -89,19 +74,35 @@ class ProveedorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request){
+      $proveedor = Proveedor::findOrFail($request->idproveedor);
+      $proveedor->pro_doc = $request->pro_doc;
+      $proveedor->pro_docnum = $request->pro_docnum;
+      $proveedor->pro_nombre = $request->pro_nombre;
+      $proveedor->pro_razon = $request->pro_razon;
+      $proveedor->pro_pais = $request->pro_pais;
+      $proveedor->pro_departamento = $request->pro_departamento;
+      $proveedor->pro_provincia = $request->pro_provincia;
+      $proveedor->pro_distrito = $request->pro_distrito;
+      $proveedor->pro_direccion = $request->pro_direccion;
+      $proveedor->pro_telefono = $request->pro_telefono;
+      $proveedor->pro_email = $request->pro_email;
+      $proveedor->pro_web = $request->pro_web;
+      $proveedor->save();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function desactivar(Request $request){
+      if (!$request->ajax()) return redirect('/');
+      $proveedor = Proveedor::findOrFail($request->idproveedor);
+      $proveedor->pro_estado = '0';
+      $proveedor->save();
     }
+
+    public function activar(Request $request){
+      if (!$request->ajax()) return redirect('/');
+      $proveedor = Proveedor::findOrFail($request->idproveedor);
+      $proveedor->pro_estado = '1';
+      $proveedor->save();
+    }
+
 }

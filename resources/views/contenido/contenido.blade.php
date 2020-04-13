@@ -4,10 +4,10 @@
     <h1>Contenido 0</h1>
       </template>
   <template v-if="menu==1">
-    <h1>Contenido 1</h1>
+    <cliente></cliente>
   </template>
   <template v-if="menu==2">
-    <h1>Contenido 2</h1>
+    <proveedor></proveedor>
   </template>
   <template v-if="menu==3">
     <h1>Contenido 3</h1>
@@ -26,5 +26,14 @@
   </template>
   <template v-if="menu==8">
     <producto></producto>
+  </template>
+  <template v-if="menu==9">
+    <lote></lote>
+  </template>
+  <template v-if="menu==10">
+    <compra></compra>
+  </template>
+  <template v-if="menu==12">
+    <usuario></usuario>
   </template>
 @endsection

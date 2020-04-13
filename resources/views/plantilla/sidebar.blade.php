@@ -11,11 +11,36 @@
               <ul class="pcoded-item pcoded-left-item">
                 <li @click="menu=0" class=" ">
                     <a href="#" class="waves-effect waves-dark">
-                        <span class="pcoded-micon"><i class="fa fa-cogs"></i><b>F</b></span>
+                        <span class="pcoded-micon"><i class="fa fa-desktop"></i><b>F</b></span>
+                        <span class="pcoded-mtext">Inicio</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+
+                </li>
+                <li class="pcoded-hasmenu">
+                    <a href="javascript:void(0)" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-cogs"></i><b>FC</b></span>
                         <span class="pcoded-mtext">Configuración</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
+                    <ul class="pcoded-submenu">
+                        <li  @click="menu=12" class=" ">
+                            <a href="#" class="waves-effect waves-dark">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext">Usuarios</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                        <li class=" ">
+                            <a href="./form-elements-add-on.html" class="waves-effect waves-dark">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext">Nueva</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
+
                 <li @click="menu=1" class=" ">
                     <a href="#" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="zmdi zmdi-accounts-alt"></i><b>F</b></span>
@@ -84,17 +109,24 @@
                           <span class="pcoded-mcaret"></span>
                       </a>
                       <ul class="pcoded-submenu">
-                          <li class=" ">
-                              <a href="./form-elements-component.html" class="waves-effect waves-dark">
+                          <li @click="menu=9" class=" ">
+                              <a href="#" class="waves-effect waves-dark">
                                   <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                  <span class="pcoded-mtext">Listado</span>
+                                  <span class="pcoded-mtext">Lote</span>
                                   <span class="pcoded-mcaret"></span>
                               </a>
                           </li>
-                          <li class=" ">
-                              <a href="./form-elements-add-on.html" class="waves-effect waves-dark">
+                          <li @click="menu=10" class=" ">
+                              <a href="#" class="waves-effect waves-dark">
                                   <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                   <span class="pcoded-mtext">Nueva</span>
+                                  <span class="pcoded-mcaret"></span>
+                              </a>
+                          </li>
+                          <li @click="menu=11" class=" ">
+                              <a href="#" class="waves-effect waves-dark">
+                                  <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                  <span class="pcoded-mtext">Lista</span>
                                   <span class="pcoded-mcaret"></span>
                               </a>
                           </li>

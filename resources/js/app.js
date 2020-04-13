@@ -7,7 +7,13 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-
+import vSelect from 'vue-select';
+// import Vue from 'vue'
+// import vSelect from 'vue-select'
+//
+// Vue.component('v-select', vSelect)
+ // Vue.component('compra', Multiselect);
+// Vue.component('v-select', vSelect);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -20,11 +26,17 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
 Vue.component('categoria', require('./components/Categoria.vue').default);
 Vue.component('marca', require('./components/Marca.vue').default);
 Vue.component('tipo', require('./components/Tipo.vue').default);
 Vue.component('unidad', require('./components/Unidad.vue').default);
 Vue.component('producto', require('./components/Producto.vue').default);
+Vue.component('proveedor', require('./components/Proveedor.vue').default);
+Vue.component('cliente', require('./components/Cliente.vue').default);
+Vue.component('lote', require('./components/Lote.vue').default);
+Vue.component('compra', require('./components/Compra.vue').default);
+Vue.component('usuario', require('./components/Usuario.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

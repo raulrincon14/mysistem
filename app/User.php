@@ -8,32 +8,13 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+  protected $table = 'users';
+  protected $primaryKey = 'idusuario';
+  protected $fillable = ['usu_nombre','usu_doc','usu_numdoc','usu_ciudad','usu_direc','usu_cel','usu_desc','usu_nac','usu_usuario','remember_token','usu_pass','usu_estado'];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+  protected $hidden = [
+      'usu_pass', 'remember_token',
+  ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+  public $timestamps= false;
 }

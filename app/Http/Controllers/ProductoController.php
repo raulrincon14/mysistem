@@ -85,7 +85,7 @@ class ProductoController extends Controller{
      */
     public function update(Request $request)
     {
-      // if (!$request->ajax()) return redirect('/');
+      if (!$request->ajax()) return redirect('/');
 
       // $producto = Producto::findOrFail('$request->idproducto');
       // $producto = Producto::findOrFail('26');

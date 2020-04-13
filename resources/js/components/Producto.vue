@@ -43,7 +43,7 @@
                           <div class="form-group row">
                               <label class="col-sm-2 col-form-label"></label>
                               <div class="col-sm-4">
-                                  <input type="text" autocomplete="off" v-model="buscar" @keyup.enter="listarProducto(1,buscar)" placeholder="Texto a buscar" class="form-control" />
+                                  <input type="text" autocomplete="off" v-model="buscar" v-on:keyup="listarProducto(1,buscar)" @keyup.enter="listarProducto(1,buscar)" placeholder="Texto a buscar" class="form-control" />
                               </div>
                               <div class="col-sm-4">
                                   <button type="submit" class="btn btn-outline-primary btn-sm"  @click="listarProducto(1,buscar)"><i class="fa fa-search"></i> Buscar </button>
@@ -379,7 +379,9 @@ export default {
             let me = this;
             var url='/producto?page=' + page + '&buscar=' + buscar;
             axios.get(url).then(function(response) {
+              console.log(response);
                     var respuesta = response.data;
+                    console.log(respuesta);
                     me.arrayProducto = respuesta.producto.data;
                     me.pagination = respuesta.pagination;
                 })
@@ -700,6 +702,8 @@ export default {
     opacity: 1 !important;
     /* position: absolute !important; */
     background-color: #3c29297a !important;
+    /* overflow-x: hidden !important; */
+    overflow-y: auto !important;
   }
   .div-error{
     color: red !important;
